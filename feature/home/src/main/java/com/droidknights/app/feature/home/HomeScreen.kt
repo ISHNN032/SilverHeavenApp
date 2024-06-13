@@ -6,9 +6,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -17,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidknights.app.feature.home.component.ContributorCard
 import com.droidknights.app.feature.home.component.SessionCard
+import com.droidknights.app.feature.home.component.SpeechTestCard
 import com.droidknights.app.feature.home.component.SponsorCard
 import com.droidknights.app.feature.home.model.SponsorsUiState
 import kotlinx.coroutines.flow.collectLatest
@@ -62,6 +67,28 @@ private fun HomeScreen(
         SessionCard(onClick = onSessionClick)
         ContributorCard(onClick = onContributorClick)
         SponsorCard(uiState = sponsorsUiState)
+
+        var speechText by remember { mutableStateOf("") }
+        var generatedText by remember { mutableStateOf("") }
+
+        SpeechTestCard (
+            onSpeechTextReceived = { text ->
+                speechText = text
+            },
+            onGeneratedTextReceived = { text ->
+                generatedText = text
+            }
+        )
+
+        Text(
+            text = ">:\n $speechText",
+            modifier = Modifier.padding(16.dp)
+        )
+
+        Text(
+            text = "<:\n $generatedText",
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }
 

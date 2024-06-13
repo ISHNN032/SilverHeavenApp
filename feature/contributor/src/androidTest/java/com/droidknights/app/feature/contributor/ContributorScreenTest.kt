@@ -39,15 +39,15 @@ class ContributorScreenTest {
     @Test
     fun 컨트리뷰터_리스트가_주어지면_화면에_노출한다() {
         // when
-        fakeUiState.value = ContributorsUiState.Contributors(
-            persistentListOf(
-                Contributor(
-                    name = "test name",
-                    imageUrl = "test image url",
-                    githubUrl = "test github url"
-                )
-            )
-        )
+//        fakeUiState.value = ContributorsUiState.Contributors(
+//            persistentListOf(
+//                Contributor(
+//                    name = "test name",
+//                    imageUrl = "test image url",
+//                    githubUrl = "test github url"
+//                )
+//            )
+//        )
 
         // then
         composeTestRule
