@@ -22,4 +22,7 @@ sealed interface MainTabRoute : Route {
 
     @Serializable
     data object Bookmark : MainTabRoute
+
+    @Serializable
+    data object MyPage : MainTabRoute
 }

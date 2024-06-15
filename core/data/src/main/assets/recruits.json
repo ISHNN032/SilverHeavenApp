@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "image_url": "https://aexample.com/image1.jpg",
+    "image_url": "https://example.com/image1.jpg",
     "title": "고령자를 위한 사무직 채용",
     "content": "고령자분들을 위한 사무직 채용 정보입니다. 주 3일 근무, 유연근무제 가능합니다.",
     "companies": [

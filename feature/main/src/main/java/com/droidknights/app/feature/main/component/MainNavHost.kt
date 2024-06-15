@@ -12,6 +12,7 @@ import com.droidknights.app.feature.bookmark.navigation.bookmarkNavGraph
 import com.droidknights.app.feature.contributor.navigation.contributorNavGraph
 import com.droidknights.app.feature.home.navigation.homeNavGraph
 import com.droidknights.app.feature.main.MainNavigator
+import com.droidknights.app.feature.main.myPageNavGraph
 import com.droidknights.app.feature.session.navigation.sessionNavGraph
 import com.droidknights.app.feature.setting.navigation.settingNavGraph
 
@@ -44,6 +45,10 @@ internal fun MainNavHost(
             )
 
             bookmarkNavGraph(
+                onShowErrorSnackBar = onShowErrorSnackBar
+            )
+
+            myPageNavGraph(
                 onShowErrorSnackBar = onShowErrorSnackBar
             )
 

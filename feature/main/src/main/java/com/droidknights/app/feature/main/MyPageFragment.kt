@@ -39,7 +39,7 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_mypage, container, false)
+        val view = inflater.inflate(R.layout.fragment_user, container, false)
 
         textViewName = view.findViewById(R.id.textViewName)
         textViewPhoneNumber = view.findViewById(R.id.textViewPhoneNumber)

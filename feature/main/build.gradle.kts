@@ -25,6 +25,8 @@ dependencies {
     implementation(projects.feature.bookmark)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.ui.viewbinding)
+    implementation(libs.androidx.fragment)
     androidTestImplementation(projects.core.testing)
     debugImplementation(projects.core.uiTestHiltManifest)
 

@@ -23,6 +23,11 @@ internal enum class MainTab(
         iconResId = R.drawable.ic_bookmark,
         contentDescription = "북마크",
         MainTabRoute.Bookmark,
+    ),
+    MY_PAGE(
+        iconResId = R.drawable.ic_account,
+        contentDescription = "마이페이지",
+        MainTabRoute.MyPage,
     );
 
     companion object {

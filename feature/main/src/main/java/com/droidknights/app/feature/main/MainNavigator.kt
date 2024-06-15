@@ -45,6 +45,7 @@ internal class MainNavigator(
             MainTab.SETTING -> navController.navigateSetting(navOptions)
             MainTab.HOME -> navController.navigateHome(navOptions)
             MainTab.BOOKMARK -> navController.navigateBookmark(navOptions)
+            MainTab.MY_PAGE -> navController.navigateMyPage(navOptions)
         }
     }
 
