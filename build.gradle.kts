@@ -7,6 +7,10 @@ buildscript {
     }
     dependencies {
         classpath(libs.oss.licenses.plugin)
+
+
+        classpath("com.android.tools.build:gradle:8.3.2")
+        classpath("com.google.gms:google-services:4.4.2")
     }
 }
 
@@ -22,6 +26,7 @@ plugins {
     alias(libs.plugins.android.test) apply false
     alias(libs.plugins.baselineprofile) apply false
     alias(libs.plugins.roborazzi.plugin) apply false
+    alias(libs.plugins.google.gms.google.services) apply false
 }
 
 apply {

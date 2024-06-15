@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "550700025805",
+    "project_id": "mysilver-ce33d",
+    "storage_bucket": "mysilver-ce33d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550700025805:android:d177c4ab6b8f86f3716684",
+        "android_client_info": {
+          "package_name": "com.droidKnights.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASYbTRNFXv4FmUyvJbYW8sSSq4mTqVGyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550700025805:android:5fc14188091a9bf6716684",
+        "android_client_info": {
+          "package_name": "com.droidknights.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASYbTRNFXv4FmUyvJbYW8sSSq4mTqVGyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550700025805:android:017b56a9311ccbcf716684",
+        "android_client_info": {
+          "package_name": "com.example.mysilver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASYbTRNFXv4FmUyvJbYW8sSSq4mTqVGyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

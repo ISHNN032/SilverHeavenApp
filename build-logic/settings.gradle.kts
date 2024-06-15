@@ -11,3 +11,8 @@ dependencyResolutionManagement {
         }
     }
 }
+
+
+
+rootProject.name = "DroidKnightsApp"
+include(":app")

@@ -3,15 +3,26 @@ plugins {
     id("com.google.android.gms.oss-licenses-plugin")
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi.plugin)
+    alias(libs.plugins.google.gms.google.services)
+
+
+//    id("com.android.application")
+//    id("com.google.gms.google-services")
+//    kotlin("android")
 }
 
 android {
     namespace = "com.droidknights.app"
 
+    compileSdk = 34
+
     defaultConfig {
         applicationId = "com.droidknights.app"
         versionCode = 1
         versionName = "1.0"
+
+        minSdk = 28
+        targetSdk = 34
     }
 
     packaging {
@@ -41,9 +52,16 @@ dependencies {
     implementation(projects.core.designsystem)
 
     implementation(projects.widget)
+    implementation(libs.firebase.auth)
 
     baselineProfile(projects.baselineprofile)
     implementation(libs.androidx.profileinstaller)
 
     testImplementation(projects.core.testing)
+
+
+
+    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+
 }
