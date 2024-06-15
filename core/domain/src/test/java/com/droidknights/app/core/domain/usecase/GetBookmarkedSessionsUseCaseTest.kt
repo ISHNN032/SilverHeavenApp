@@ -1,8 +1,8 @@
 package com.droidknights.app.core.domain.usecase
 
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
-import com.droidknights.app.core.model.Speaker
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
+import com.droidknights.app.core.model.Company
 import com.droidknights.app.core.model.Tag
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.collections.shouldBeSortedWith
@@ -15,7 +15,7 @@ internal class GetBookmarkedSessionsUseCaseTest : BehaviorSpec() {
 
     private val fakeSessionsRepository = FakeSessionRepository(
         bookmarkedSessionIds = bookmarkedSessionIds,
-        sessions = sessions
+        recruits = recruits
     )
 
     private val useCase: GetBookmarkedSessionsUseCase = GetBookmarkedSessionsUseCase(
@@ -48,36 +48,36 @@ internal class GetBookmarkedSessionsUseCaseTest : BehaviorSpec() {
 
     companion object {
         private val bookmarkedSessionIds = setOf("1", "2")
-        private val sessions = listOf(
-            Session(
+        private val recruits = listOf(
+            Recruit(
                 id = "3",
                 title = "Item3 Title",
                 content = "Item3 Content",
-                speakers = listOf(Speaker(name = "철수", introduction = "", imageUrl = "")),
+                speakers = listOf(Company(name = "철수", introduction = "", imageUrl = "")),
                 tags = listOf(Tag(name = "Architecture")),
-                room = Room.TRACK1,
+                category = Category.JOB,
                 startTime = LocalDateTime(2023, 10, 5, 11, 0),
                 endTime = LocalDateTime(2023, 10, 5, 11, 50),
                 isBookmarked = false
             ),
-            Session(
+            Recruit(
                 id = "1",
                 title = "Item1 Title",
                 content = "Item1 Content",
-                speakers = listOf(Speaker(name = "영희", introduction = "", imageUrl = "")),
+                speakers = listOf(Company(name = "영희", introduction = "", imageUrl = "")),
                 tags = listOf(Tag(name = "Architecture")),
-                room = Room.TRACK1,
+                category = Category.JOB,
                 startTime = LocalDateTime(2023, 10, 5, 9, 0),
                 endTime = LocalDateTime(2023, 10, 5, 9, 50),
                 isBookmarked = false
             ),
-            Session(
+            Recruit(
                 id = "2",
                 title = "Item2 Title",
                 content = "Item2 Content",
-                speakers = listOf(Speaker(name = "민수", introduction = "", imageUrl = "")),
+                speakers = listOf(Company(name = "민수", introduction = "", imageUrl = "")),
                 tags = listOf(Tag(name = "Architecture")),
-                room = Room.TRACK1,
+                category = Category.JOB,
                 startTime = LocalDateTime(2023, 10, 5, 10, 0),
                 endTime = LocalDateTime(2023, 10, 5, 10, 50),
                 isBookmarked = false

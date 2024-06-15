@@ -31,9 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
-import com.droidknights.app.core.model.Speaker
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
+import com.droidknights.app.core.model.Company
 import com.droidknights.app.core.model.Tag
 import com.droidknights.app.feature.session.component.SessionChips
 import com.droidknights.app.feature.session.component.SessionDetailBookmarkStatePopup
@@ -77,7 +77,7 @@ internal fun SessionDetailScreen(
         Box {
             when (val uiState = sessionUiState) {
                 is SessionDetailUiState.Loading -> SessionDetailLoading()
-                is SessionDetailUiState.Success -> SessionDetailContent(uiState.session)
+                is SessionDetailUiState.Success -> SessionDetailContent(uiState.recruit)
             }
 
             if (effect is SessionDetailEffect.ShowToastForBookmarkState) {
@@ -108,7 +108,7 @@ private fun SessionDetailLoading() {
 }
 
 @Composable
-private fun SessionDetailContent(session: Session) {
+private fun SessionDetailContent(recruit: Recruit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -116,24 +116,24 @@ private fun SessionDetailContent(session: Session) {
     ) {
         Text(
             modifier = Modifier.padding(top = 8.dp).padding(end = 58.dp),
-            text = session.title,
+            text = recruit.title,
             style = KnightsTheme.typography.headlineMediumB,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Spacer(modifier = Modifier.height(12.dp))
-        SessionChips(session = session)
+        SessionChips(recruit = recruit)
 
-        if (session.content.isNotEmpty()) {
+        if (recruit.content.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
-            SessionOverview(content = session.content)
+            SessionOverview(content = recruit.content)
         }
 
         Spacer(modifier = Modifier.height(40.dp))
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outline)
         Spacer(modifier = Modifier.height(40.dp))
-        session.speakers.forEach { speaker ->
+        recruit.companies.forEach { speaker ->
             SessionDetailSpeaker(speaker)
-            if (speaker != session.speakers.last()) {
+            if (speaker != recruit.companies.last()) {
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }
@@ -157,46 +157,46 @@ private fun SessionOverview(content: String) {
     }
 }
 
-private val SampleSessionHasContent = Session(
+private val SampleRecruitHasContent = Recruit(
     id = "2",
     title = "세션 제목은 세션 제목 - 개요 있음",
     content = "세션에 대한 소개와 세션에서의 장단점과 세션을 실제로 사용한 사례와 세션 내용에 대한 QnA 진행",
-    speakers = listOf(
-        Speaker(
+    companies = listOf(
+        Company(
             name = "스피커1",
             introduction = "스피커1 에 대한 소개",
             imageUrl = "",
         ),
     ),
     tags = listOf(Tag("Dev Environment")),
-    room = Room.TRACK1,
+    category = Category.JOB,
     startTime = LocalDateTime.parse("2023-09-12T11:00:00.000"),
     endTime = LocalDateTime.parse("2023-09-12T11:30:00.000"),
     isBookmarked = false
 )
 
-private val SampleSessionNoContent = Session(
+private val SampleRecruitNoContent = Recruit(
     id = "2",
     title = "세션 제목은 세션 제목 - 개요 없음",
     content = "",
-    speakers = listOf(
-        Speaker(
+    companies = listOf(
+        Company(
             name = "스피커1",
             introduction = "스피커1 에 대한 소개",
             imageUrl = "",
         ),
     ),
     tags = listOf(Tag("Dev Environment")),
-    room = Room.TRACK1,
+    category = Category.JOB,
     startTime = LocalDateTime.parse("2023-09-12T11:00:00.000"),
     endTime = LocalDateTime.parse("2023-09-12T11:30:00.000"),
     isBookmarked = true
 )
 
-class SessionDetailContentProvider : PreviewParameterProvider<Session> {
-    override val values: Sequence<Session> = sequenceOf(
-        SampleSessionNoContent,
-        SampleSessionHasContent
+class SessionDetailContentProvider : PreviewParameterProvider<Recruit> {
+    override val values: Sequence<Recruit> = sequenceOf(
+        SampleRecruitNoContent,
+        SampleRecruitHasContent
     )
 }
 
@@ -217,10 +217,10 @@ private fun SessionDetailTopAppBarPreview() {
 @Preview
 @Composable
 private fun SessionDetailContentPreview(
-    @PreviewParameter(SessionDetailContentProvider::class) session: Session,
+    @PreviewParameter(SessionDetailContentProvider::class) recruit: Recruit,
 ) {
     KnightsTheme {
-        SessionDetailContent(session = session)
+        SessionDetailContent(recruit = recruit)
     }
 }
 
@@ -228,7 +228,7 @@ private fun SessionDetailContentPreview(
 @Composable
 private fun SessionDetailSpeakerPreview() {
     KnightsTheme {
-        SessionDetailSpeaker(SampleSessionHasContent.speakers.first())
+        SessionDetailSpeaker(SampleRecruitHasContent.companies.first())
     }
 }
 
@@ -236,6 +236,6 @@ private fun SessionDetailSpeakerPreview() {
 @Composable
 private fun SessionOverviewPreview() {
     KnightsTheme {
-        SessionOverview(SampleSessionHasContent.content)
+        SessionOverview(SampleRecruitHasContent.content)
     }
 }

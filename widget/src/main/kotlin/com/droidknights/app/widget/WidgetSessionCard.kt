@@ -18,7 +18,7 @@ import androidx.glance.layout.padding
 import androidx.glance.layout.width
 import androidx.glance.text.Text
 import androidx.glance.text.TextDefaults
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import kotlinx.datetime.toJavaLocalDateTime
 
 @Composable
@@ -29,11 +29,11 @@ internal fun WidgetSessionCard(uiState: WidgetSessionCardUiState) {
         Column(
             modifier = GlanceModifier.padding(16.dp).fillMaxWidth()
                 .cornerRadius(12.dp).background(GlanceTheme.colors.tertiaryContainer).clickable(
-                    actionStartActivityWithSessionId(context, uiState.session.id)
+                    actionStartActivityWithSessionId(context, uiState.recruit.id)
                 )
         ) {
             Text(
-                uiState.session.title,
+                uiState.recruit.title,
                 style = TextDefaults.defaultTextStyle.copy(
                     fontSize = 16.sp,
                     color = GlanceTheme.colors.onTertiaryContainer
@@ -41,7 +41,7 @@ internal fun WidgetSessionCard(uiState: WidgetSessionCardUiState) {
             )
             Row {
                 Text(
-                    uiState.session.toTimeString(),
+                    uiState.recruit.toTimeString(),
                     style = TextDefaults.defaultTextStyle.copy(
                         fontSize = 14.sp,
                         color = GlanceTheme.colors.onTertiaryContainer
@@ -60,7 +60,7 @@ internal fun WidgetSessionCard(uiState: WidgetSessionCardUiState) {
     }
 }
 
-private fun Session.toTimeString(): String =
+private fun Recruit.toTimeString(): String =
     "${startTime.toJavaLocalDateTime().toLocalTime()}" +
     " ~ " +
     "${endTime.toJavaLocalDateTime().toLocalTime()}"

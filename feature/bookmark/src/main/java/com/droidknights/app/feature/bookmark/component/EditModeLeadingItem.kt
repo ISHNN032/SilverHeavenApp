@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.designsystem.theme.Purple01
 import com.droidknights.app.core.designsystem.theme.White
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.feature.bookmark.R
 import com.droidknights.app.feature.bookmark.model.BookmarkItemUiState
 import kotlinx.collections.immutable.ImmutableSet
@@ -32,14 +32,14 @@ import kotlinx.datetime.LocalDateTime
 internal fun EditModeLeadingItem(
     itemState: BookmarkItemUiState,
     selectedSessionIds: ImmutableSet<String>,
-    onSelectedItem: (Session) -> Unit,
+    onSelectedItem: (Recruit) -> Unit,
 ) {
-    val isSelectedItem = selectedSessionIds.contains(itemState.session.id)
+    val isSelectedItem = selectedSessionIds.contains(itemState.recruit.id)
     val baseModifier = Modifier
         .padding(horizontal = 18.dp)
         .size(24.dp)
         .clip(CircleShape)
-        .clickable { onSelectedItem(itemState.session) }
+        .clickable { onSelectedItem(itemState.recruit) }
     if (isSelectedItem) {
         Box(
             modifier = baseModifier.background(Purple01),
@@ -66,13 +66,13 @@ internal fun EditModeLeadingItem(
 
 private val SampleBookmarkItemUiState = BookmarkItemUiState(
     index = 0,
-    session = Session(
+    recruit = Recruit(
         id = "1",
         title = "Session Title",
         content = "Compose 성능 최적화를 위한 Stability 마스터하기",
-        speakers = emptyList(),
+        companies = emptyList(),
         tags = emptyList(),
-        room = Room.TRACK1,
+        category = Category.JOB,
         startTime = LocalDateTime(2022, 1, 1, 10, 0, 0),
         endTime = LocalDateTime(2022, 1, 1, 11, 0, 0),
         isBookmarked = true,

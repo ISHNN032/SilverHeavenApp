@@ -4,15 +4,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal enum class RoomResponse {
+internal enum class CategoryResponse {
     ETC,
 
-    @SerialName("Track1")
-    TRACK1,
+    @SerialName("Job")
+    JOB,
 
-    @SerialName("Track2")
-    TRACK2,
+    @SerialName("PartTime")
+    PART_TIME,
 
-    @SerialName("Track3")
-    TRACK3
+    @SerialName("SideJob")
+    SIDE_JOB
 }

@@ -5,13 +5,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class SessionResponse(
+internal data class RecruitResponse(
     @SerialName("id") val id: String,
     @SerialName("title") val title: String,
     @SerialName("content") val content: String,
-    @SerialName("speakers") val speakers: List<SpeakerResponse>,
+    @SerialName("image_url") val imageUrl: String,
+    @SerialName("companies") val companies: List<CompanyResponse>,
     @SerialName("tags") val tags: List<String>,
-    @SerialName("room") val room: RoomResponse?,
+    @SerialName("category") val category: CategoryResponse?,
     @SerialName("startTime") val startTime: LocalDateTime,
     @SerialName("endTime") val endTime: LocalDateTime,
 )

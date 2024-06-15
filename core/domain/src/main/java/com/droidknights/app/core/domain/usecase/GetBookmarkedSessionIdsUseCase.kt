@@ -9,5 +9,5 @@ class GetBookmarkedSessionIdsUseCase @Inject constructor(
 ) {
 
     operator fun invoke(): Flow<Set<String>> =
-        sessionRepository.getBookmarkedSessionIds()
+        sessionRepository.getBookmarkedRecruitIds()
 }

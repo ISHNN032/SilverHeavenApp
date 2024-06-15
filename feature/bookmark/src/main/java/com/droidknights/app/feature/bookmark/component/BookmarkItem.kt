@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Room
+import com.droidknights.app.core.model.Category
 import com.droidknights.app.feature.bookmark.R
 import java.time.LocalTime
 
@@ -135,7 +135,7 @@ private fun BookMarkItemForPreview(isEditMode: Boolean) {
         midContent = @Composable {
             BookmarkCard(
                 tagLabel = "효율적인 코드 베이스",
-                room = Room.TRACK2,
+                category = Category.PART_TIME,
                 title = "Jetpack Compose에 있는 것, 없는것",
                 speaker = "홍길동"
             )

@@ -1,6 +1,6 @@
 package com.droidknights.app.feature.bookmark.model
 
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import java.time.LocalTime
 import javax.annotation.concurrent.Immutable
 import kotlinx.datetime.toJavaLocalDateTime
@@ -8,18 +8,18 @@ import kotlinx.datetime.toJavaLocalDateTime
 @Immutable
 data class BookmarkItemUiState(
     val index: Int,
-    val session: Session,
+    val recruit: Recruit,
 ) {
 
     val sequence: Int
         get() = index + 1
 
     val tagLabel: String
-        get() = session.tags.joinToString { it.name }
+        get() = recruit.tags.joinToString { it.name }
 
     val speakerLabel: String
-        get() = session.speakers.joinToString { it.name }
+        get() = recruit.companies.joinToString { it.name }
 
     val time: LocalTime
-        get() = session.startTime.toJavaLocalDateTime().toLocalTime()
+        get() = recruit.startTime.toJavaLocalDateTime().toLocalTime()
 }

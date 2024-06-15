@@ -16,17 +16,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.component.NetworkImage
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Speaker
+import com.droidknights.app.core.model.Company
 import com.droidknights.app.core.ui.R
 
 @Composable
 internal fun SessionDetailSpeaker(
-    speaker: Speaker,
+    company: Company,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         NetworkImage(
-            imageUrl = speaker.imageUrl,
+            imageUrl = company.imageUrl,
             modifier = Modifier
                 .size(108.dp)
                 .clip(CircleShape),
@@ -41,7 +41,7 @@ internal fun SessionDetailSpeaker(
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Text(
-            text = speaker.name,
+            text = company.name,
             style = KnightsTheme.typography.titleMediumB,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
@@ -49,7 +49,7 @@ internal fun SessionDetailSpeaker(
         Spacer(Modifier.height(16.dp))
 
         Text(
-            text = speaker.introduction,
+            text = company.introduction,
             style = KnightsTheme.typography.titleSmallR140,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
@@ -61,7 +61,7 @@ internal fun SessionDetailSpeaker(
 private fun SessionDetailSpeakerPreview() {
     KnightsTheme {
         SessionDetailSpeaker(
-            speaker = Speaker(
+            company = Company(
                 name = "스피커1",
                 introduction = "스피커1 에 대한 소개",
                 imageUrl = "",

@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.component.KnightsTopAppBar
 import com.droidknights.app.core.designsystem.component.TopAppBarNavigationType
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Room
+import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.ui.RoomText
 import com.droidknights.app.feature.session.R
 import com.droidknights.app.feature.session.model.SessionState
@@ -58,7 +58,7 @@ internal fun SessionTopAppBar(
     val enter = fadeIn()
     val exit = fadeOut()
 
-    val rooms = sessionState.rooms
+    val rooms = sessionState.categories
     val coroutineScope = rememberCoroutineScope()
 
     Box {
@@ -69,8 +69,8 @@ internal fun SessionTopAppBar(
                 exit = exit,
             ) {
                 SessionTabRow(
-                    selectedRoom = sessionState.selectedRoom,
-                    rooms = rooms.toPersistentList(),
+                    selectedCategory = sessionState.selectedCategory,
+                    categories = rooms.toPersistentList(),
                     onRoomSelect = { room ->
                         coroutineScope.launch {
                             sessionState.scrollTo(room)
@@ -98,16 +98,16 @@ internal fun SessionTopAppBar(
 
 @Composable
 private fun SessionTabRow(
-    selectedRoom: Room?,
-    rooms: PersistentList<Room>,
-    onRoomSelect: (Room) -> Unit,
+    selectedCategory: Category?,
+    categories: PersistentList<Category>,
+    onRoomSelect: (Category) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
     val tabWidths = remember {
-        mutableStateListOf<Dp>().apply { addAll(rooms.map { 0.dp }) }
+        mutableStateListOf<Dp>().apply { addAll(categories.map { 0.dp }) }
     }
-    val selectedTabIndex = rooms.indexOf(selectedRoom)
+    val selectedTabIndex = categories.indexOf(selectedCategory)
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier,
@@ -124,10 +124,10 @@ private fun SessionTabRow(
         },
         divider = { HorizontalDivider(color = MaterialTheme.colorScheme.outline) }
     ) {
-        rooms.forEachIndexed { tabIndex, room ->
+        categories.forEachIndexed { tabIndex, room ->
             Tab(
-                room = room,
-                selected = selectedRoom == room,
+                category = room,
+                selected = selectedCategory == room,
                 onClick = { onRoomSelect(room) },
                 onTextLayout = { textLayoutResult ->
                     tabWidths[tabIndex] = with(density) { textLayoutResult.size.width.toDp() }
@@ -150,7 +150,7 @@ private fun TabIndicator(height: Dp, modifier: Modifier) {
 
 @Composable
 private fun Tab(
-    room: Room,
+    category: Category,
     selected: Boolean,
     onClick: () -> Unit,
     onTextLayout: (TextLayoutResult) -> Unit,
@@ -160,7 +160,7 @@ private fun Tab(
         onClick = onClick,
         text = {
             RoomText(
-                room = room,
+                category = category,
                 style = KnightsTheme.typography.titleSmallM,
                 onTextLayout = { textLayoutResult -> onTextLayout(textLayoutResult) }
             )
@@ -195,7 +195,7 @@ private fun SessionTopAppBarPreview() {
     KnightsTheme {
         SessionTopAppBar(
             sessionState = SessionState(
-                sessions = persistentListOf(),
+                recruits = persistentListOf(),
                 listState = rememberLazyListState()
             ),
             onBackClick = { }
@@ -209,8 +209,8 @@ private fun SessionTopAppBarPreview() {
 private fun SessionTabIndicatorPreview() {
     KnightsTheme {
         SessionTabRow(
-            selectedRoom = Room.TRACK2,
-            rooms = Room.entries.toPersistentList(),
+            selectedCategory = Category.PART_TIME,
+            categories = Category.entries.toPersistentList(),
             onRoomSelect = { },
             modifier = Modifier.size(320.dp, 48.dp),
         )

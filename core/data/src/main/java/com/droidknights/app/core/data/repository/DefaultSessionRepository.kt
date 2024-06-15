@@ -4,7 +4,7 @@ import com.droidknights.app.core.data.api.GithubRawApi
 import com.droidknights.app.core.data.mapper.toData
 import com.droidknights.app.core.data.repository.api.SessionRepository
 import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -15,37 +15,37 @@ internal class DefaultSessionRepository @Inject constructor(
     private val sessionDataSource: SessionPreferencesDataSource
 ) : SessionRepository {
 
-    private var cachedSessions: List<Session> = emptyList()
+    private var cachedRecruits: List<Recruit> = emptyList()
 
     private val bookmarkIds: Flow<Set<String>> = sessionDataSource.bookmarkedSession
 
-    override suspend fun getSessions(): List<Session> {
-        return githubRawApi.getSessions()
+    override suspend fun getRecruits(): List<Recruit> {
+        return githubRawApi.getRecruits()
             .map { it.toData() }
-            .also { cachedSessions = it }
+            .also { cachedRecruits = it }
     }
 
-    override suspend fun getSession(sessionId: String): Session {
-        val cachedSession = cachedSessions.find { it.id == sessionId }
+    override suspend fun getRecruit(sessionId: String): Recruit {
+        val cachedSession = cachedRecruits.find { it.id == sessionId }
         if (cachedSession != null) {
             return cachedSession
         }
 
-        return getSessions().find { it.id == sessionId }
+        return getRecruits().find { it.id == sessionId }
             ?: error("Session not found with id: $sessionId")
     }
 
-    override fun getBookmarkedSessionIds(): Flow<Set<String>> {
+    override fun getBookmarkedRecruitIds(): Flow<Set<String>> {
         return bookmarkIds.filterNotNull()
     }
 
-    override suspend fun bookmarkSession(sessionId: String, bookmark: Boolean) {
-        val currentBookmarkedSessionIds = bookmarkIds.first()
+    override suspend fun bookmarkRecruit(recruitId: String, bookmark: Boolean) {
+        val currentBookmarkedRecruitIds = bookmarkIds.first()
         sessionDataSource.updateBookmarkedSession(
             if (bookmark) {
-                currentBookmarkedSessionIds + sessionId
+                currentBookmarkedRecruitIds + recruitId
             } else {
-                currentBookmarkedSessionIds - sessionId
+                currentBookmarkedRecruitIds - recruitId
             }
         )
     }

@@ -13,8 +13,8 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -23,40 +23,40 @@ import kotlinx.coroutines.flow.mapNotNull
 
 @Immutable
 data class SessionGroup(
-    val room: Room,
-    val sessions: PersistentList<Session>,
+    val category: Category,
+    val recruits: PersistentList<Recruit>,
 )
 
 @Stable
 class SessionState(
-    private val sessions: ImmutableList<Session>,
+    private val recruits: ImmutableList<Recruit>,
     val listState: LazyListState,
-    selectedRoom: Room? = sessions.map { it.room }.firstOrNull(),
+    selectedCategory: Category? = recruits.map { it.category }.firstOrNull(),
 ) {
 
-    val groups: List<SessionGroup> = sessions
-        .groupBy { it.room }
+    val groups: List<SessionGroup> = recruits
+        .groupBy { it.category }
         .map { (room, sessions) -> SessionGroup(room, sessions.toPersistentList()) }
 
-    val rooms: List<Room> = sessions.map { it.room }.distinct()
+    val categories: List<Category> = recruits.map { it.category }.distinct()
 
-    private val roomPositions: Map<Room, Int> = buildMap {
+    private val categoryPositions: Map<Category, Int> = buildMap {
         var position = 0
         groups.forEach { group ->
-            put(group.room, position)
-            position += group.sessions.size
+            put(group.category, position)
+            position += group.recruits.size
         }
     }
 
-    var selectedRoom: Room? by mutableStateOf(selectedRoom)
+    var selectedCategory: Category? by mutableStateOf(selectedCategory)
         private set
 
     val isAtTop by derivedStateOf {
         listState.firstVisibleItemIndex == 0 && listState.firstVisibleItemScrollOffset == 0
     }
 
-    fun groupIndex(index: Int): Room? {
-        for ((room, position) in roomPositions) {
+    fun groupIndex(index: Int): Category? {
+        for ((room, position) in categoryPositions) {
             if (position == index) {
                 return room
             }
@@ -64,27 +64,27 @@ class SessionState(
         return null
     }
 
-    fun select(room: Room) {
-        selectedRoom = room
+    fun select(category: Category) {
+        selectedCategory = category
     }
 
-    suspend fun scrollTo(room: Room) {
-        val index = roomPositions[room] ?: return
+    suspend fun scrollTo(category: Category) {
+        val index = categoryPositions[category] ?: return
         listState.animateScrollToItem(index)
     }
 
     companion object {
 
         fun Saver(
-            sessions: ImmutableList<Session>,
+            recruits: ImmutableList<Recruit>,
             listState: LazyListState,
         ): Saver<SessionState, *> = Saver(
-            save = { it.selectedRoom },
+            save = { it.selectedCategory },
             restore = { selectedRoom ->
                 SessionState(
-                    sessions = sessions,
+                    recruits = recruits,
                     listState = listState,
-                    selectedRoom = selectedRoom,
+                    selectedCategory = selectedRoom,
                 )
             }
         )
@@ -93,17 +93,17 @@ class SessionState(
 
 @Composable
 internal fun rememberSessionState(
-    sessions: ImmutableList<Session>,
+    recruits: ImmutableList<Recruit>,
     listState: LazyListState = rememberLazyListState(),
 ): SessionState {
     val state = rememberSaveable(
-        sessions,
+        recruits,
         listState,
-        saver = SessionState.Saver(sessions, listState),
+        saver = SessionState.Saver(recruits, listState),
     ) {
-        SessionState(sessions, listState)
+        SessionState(recruits, listState)
     }
-    LaunchedEffect(sessions, listState) {
+    LaunchedEffect(recruits, listState) {
         snapshotFlow { listState.firstVisibleItemIndex }
             .mapNotNull { index -> state.groupIndex(index) }
             .distinctUntilChanged()

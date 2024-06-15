@@ -21,14 +21,14 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.designsystem.theme.Purple01
-import com.droidknights.app.core.model.Room
+import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.ui.RoomText
 
 @Composable
 internal fun BookmarkCard(
     modifier: Modifier = Modifier,
     tagLabel: String,
-    room: Room,
+    category: Category,
     title: String,
     speaker: String,
 ) {
@@ -59,7 +59,7 @@ internal fun BookmarkCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             RoomText(
-                room,
+                category,
                 style = KnightsTheme.typography.labelSmallM,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -79,25 +79,25 @@ internal fun BookmarkCard(
     }
 }
 
-internal class RoomPreviewParameterProvider : PreviewParameterProvider<Room> {
+internal class RoomPreviewParameterProvider : PreviewParameterProvider<Category> {
     override val values = sequenceOf(
-        Room.TRACK1,
-        Room.TRACK2,
-        Room.TRACK3,
-        Room.ETC
+        Category.JOB,
+        Category.PART_TIME,
+        Category.SIDE_JOB,
+        Category.ETC
     )
 }
 
 @Preview
 @Composable
 private fun BookmarkCardPreview(
-    @PreviewParameter(RoomPreviewParameterProvider::class) room: Room,
+    @PreviewParameter(RoomPreviewParameterProvider::class) category: Category,
 ) {
     KnightsTheme {
         Box {
             BookmarkCard(
                 tagLabel = "효율적인 코드 베이스",
-                room = room,
+                category = category,
                 title = "Jetpack Compose에 있는 것, 없는것",
                 speaker = "홍길동"
             )

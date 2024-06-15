@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidknights.app.core.domain.usecase.DeleteBookmarkedSessionUseCase
 import com.droidknights.app.core.domain.usecase.GetBookmarkedSessionsUseCase
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.feature.bookmark.model.BookmarkItemUiState
 import com.droidknights.app.feature.bookmark.model.BookmarkUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,7 +50,7 @@ class BookmarkViewModel @Inject constructor(
                                 .mapIndexed { index, session ->
                                     BookmarkItemUiState(
                                         index = index,
-                                        session = session,
+                                        recruit = session,
                                     )
                                 }
                                 .toPersistentList()
@@ -63,7 +63,7 @@ class BookmarkViewModel @Inject constructor(
                                 .mapIndexed { index, session ->
                                     BookmarkItemUiState(
                                         index = index,
-                                        session = session,
+                                        recruit = session,
                                     )
                                 }
                                 .toPersistentList()
@@ -89,17 +89,17 @@ class BookmarkViewModel @Inject constructor(
         )
     }
 
-    fun selectSession(session: Session) {
+    fun selectSession(recruit: Recruit) {
         val state = _bookmarkUiState.value
         if (state !is BookmarkUiState.Success) {
             return
         }
 
-        val isAlreadySelected = state.selectedSessionIds.contains(session.id)
+        val isAlreadySelected = state.selectedSessionIds.contains(recruit.id)
         val newSelectedIds = if (isAlreadySelected) {
-            state.selectedSessionIds - session.id
+            state.selectedSessionIds - recruit.id
         } else {
-            state.selectedSessionIds + session.id
+            state.selectedSessionIds + recruit.id
         }
 
         _bookmarkUiState.value = state.copy(

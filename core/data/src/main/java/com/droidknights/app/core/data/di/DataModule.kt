@@ -73,7 +73,7 @@ internal abstract class DataModule {
             AssetsGithubRawApi(
                 json = json,
                 sponsors = context.assets.open("sponsors.json"),
-                sessions = context.assets.open("sessions.json"),
+                recruits = context.assets.open("recruits.json"),
                 contributors = context.assets.open("contributors.json"),
             )
     }

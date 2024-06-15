@@ -50,7 +50,7 @@ class DroidKnightsWidget : GlanceAppWidget() {
                 LaunchedEffect(state) {
                     widgetSessionCards = state?.map {
                         WidgetSessionCardUiState(
-                            session = widgetModule.getSessionUseCase().invoke(it),
+                            recruit = widgetModule.getSessionUseCase().invoke(it),
                         )
                     } ?: emptyList()
                 }

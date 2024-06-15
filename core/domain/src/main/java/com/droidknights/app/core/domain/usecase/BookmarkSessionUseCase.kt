@@ -8,5 +8,5 @@ class BookmarkSessionUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(sessionId: String, bookmark: Boolean) =
-        sessionRepository.bookmarkSession(sessionId, bookmark)
+        sessionRepository.bookmarkRecruit(sessionId, bookmark)
 }

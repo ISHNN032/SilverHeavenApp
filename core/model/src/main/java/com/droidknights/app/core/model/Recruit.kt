@@ -2,13 +2,13 @@ package com.droidknights.app.core.model
 
 import kotlinx.datetime.LocalDateTime
 
-data class Session(
+data class Recruit(
     val id: String,
     val title: String,
     val content: String,
-    val speakers: List<Speaker>,
+    val companies: List<Company>,
     val tags: List<Tag>,
-    val room: Room,
+    val category: Category,
     val startTime: LocalDateTime,
     val endTime: LocalDateTime,
     val isBookmarked: Boolean

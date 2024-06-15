@@ -7,25 +7,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
-import com.droidknights.app.core.model.Room
+import com.droidknights.app.core.model.Category
 
-val Room.textRes: Int
+val Category.textRes: Int
     get() = when (this) {
-        Room.ETC -> R.string.session_room_keynote
-        Room.TRACK1 -> R.string.session_room_track_01
-        Room.TRACK2 -> R.string.session_room_track_02
-        Room.TRACK3 -> R.string.session_room_track_03
+        Category.ETC -> R.string.session_room_keynote
+        Category.JOB -> R.string.session_room_track_01
+        Category.PART_TIME -> R.string.session_room_track_02
+        Category.SIDE_JOB -> R.string.session_room_track_03
     }
 
 @Composable
 fun RoomText(
-    room: Room,
+    category: Category,
     style: TextStyle,
     color: Color = LocalContentColor.current,
     onTextLayout: (TextLayoutResult) -> Unit = {},
 ) {
     Text(
-        text = stringResource(id = room.textRes),
+        text = stringResource(id = category.textRes),
         style = style,
         color = color,
         onTextLayout = onTextLayout,

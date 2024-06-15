@@ -33,44 +33,44 @@ import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.designsystem.theme.LightGray
 import com.droidknights.app.core.designsystem.theme.Purple01
 import com.droidknights.app.core.designsystem.theme.Purple01A30
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
-import com.droidknights.app.core.model.Speaker
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
+import com.droidknights.app.core.model.Company
 import com.droidknights.app.core.model.Tag
 import com.droidknights.app.feature.session.R
 import kotlinx.datetime.LocalDateTime
 
 @Composable
 internal fun SessionCard(
-    session: Session,
+    recruit: Recruit,
     modifier: Modifier = Modifier,
-    onSessionClick: (Session) -> Unit = { },
+    onSessionClick: (Recruit) -> Unit = { },
 ) {
-    if (session.content.isBlank()) {
+    if (recruit.content.isBlank()) {
         KnightsCard(
             modifier = modifier
         ) {
-            SessionCardContent(session = session)
+            SessionCardContent(recruit = recruit)
         }
     } else {
         KnightsCard(
             modifier = modifier,
-            onClick = { onSessionClick(session) }
+            onClick = { onSessionClick(recruit) }
         ) {
-            SessionCardContent(session = session)
+            SessionCardContent(recruit = recruit)
         }
     }
 }
 
 @Composable
 private fun SessionCardContent(
-    session: Session,
+    recruit: Recruit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
     ) {
-        if (session.isBookmarked) {
+        if (recruit.isBookmarked) {
             BookmarkImage(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -80,20 +80,20 @@ private fun SessionCardContent(
         Column(
             modifier = Modifier.padding(CardContentPadding)
         ) {
-            SessionHeader(session)
+            SessionHeader(recruit)
             Spacer(modifier = Modifier.height(8.dp))
-            SessionTitle(session.title)
+            SessionTitle(recruit.title)
             Spacer(modifier = Modifier.height(12.dp))
-            SessionTrackInfo(session)
+            SessionTrackInfo(recruit)
             Spacer(modifier = Modifier.height(12.dp))
-            SessionSpeakers(session.speakers)
+            SessionSpeakers(recruit.companies)
         }
     }
 }
 
 @Composable
 private fun SessionHeader(
-    session: Session,
+    recruit: Recruit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -101,7 +101,7 @@ private fun SessionHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CategoryChip()
-        session.tags.forEach { tag ->
+        recruit.tags.forEach { tag ->
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = tag.name,
@@ -127,16 +127,16 @@ private fun SessionTitle(
 
 @Composable
 private fun SessionTrackInfo(
-    session: Session,
+    recruit: Recruit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
     ) {
-        TrackChip(room = session.room)
+        TrackChip(category = recruit.category)
         Spacer(modifier = Modifier.width(8.dp))
-        TimeChip(dateTime = session.startTime)
-        if (session.isBookmarked) {
+        TimeChip(dateTime = recruit.startTime)
+        if (recruit.isBookmarked) {
             Spacer(modifier = Modifier.width(8.dp))
             IconTextChip(
                 text = stringResource(id = R.string.bookmark),
@@ -151,12 +151,12 @@ private fun SessionTrackInfo(
 
 @Composable
 private fun SessionSpeakers(
-    speakers: List<Speaker>,
+    companies: List<Company>,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.align(Alignment.BottomStart)) {
-            speakers.forEach { speaker ->
+            companies.forEach { speaker ->
                 Text(
                     text = speaker.name,
                     style = KnightsTheme.typography.titleLargeB,
@@ -165,7 +165,7 @@ private fun SessionSpeakers(
             }
         }
         Row(modifier = Modifier.align(Alignment.BottomEnd)) {
-            speakers.forEach { speaker ->
+            companies.forEach { speaker ->
                 NetworkImage(
                     imageUrl = speaker.imageUrl,
                     modifier = Modifier
@@ -205,14 +205,14 @@ private fun BookmarkImage(
 private val CardContentPadding =
     PaddingValues(start = 24.dp, top = 16.dp, end = 24.dp, bottom = 24.dp)
 
-internal class SessionPreviewParameterProvider : PreviewParameterProvider<Session> {
+internal class SessionPreviewParameterProvider : PreviewParameterProvider<Recruit> {
     override val values = sequenceOf(
-        Session( // single speaker with out bookmark
+        Recruit( // single speaker with out bookmark
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
-            speakers = listOf(
-                Speaker(
+            companies = listOf(
+                Company(
                     name = "안성용",
                     introduction = "안드로이드 개발자",
                     imageUrl = "https://picsum.photos/200",
@@ -223,15 +223,15 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Sessio
             ),
             startTime = LocalDateTime(2023, 9, 12, 16, 10, 0),
             endTime = LocalDateTime(2023, 9, 12, 16, 45, 0),
-            room = Room.TRACK1,
+            category = Category.JOB,
             isBookmarked = false,
         ),
-        Session( // single speaker with bookmark
+        Recruit( // single speaker with bookmark
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
-            speakers = listOf(
-                Speaker(
+            companies = listOf(
+                Company(
                     name = "안성용",
                     introduction = "안드로이드 개발자",
                     imageUrl = "https://picsum.photos/200",
@@ -242,25 +242,25 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Sessio
             ),
             startTime = LocalDateTime(2023, 9, 12, 16, 10, 0),
             endTime = LocalDateTime(2023, 9, 12, 16, 45, 0),
-            room = Room.TRACK1,
+            category = Category.JOB,
             isBookmarked = true,
         ),
-        Session( // multi speakers
+        Recruit( // multi speakers
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
-            speakers = listOf(
-                Speaker(
+            companies = listOf(
+                Company(
                     name = "안성용",
                     introduction = "안드로이드 개발자",
                     imageUrl = "https://picsum.photos/200",
                 ),
-                Speaker(
+                Company(
                     name = "안성용",
                     introduction = "안드로이드 개발자",
                     imageUrl = "https://picsum.photos/200",
                 ),
-                Speaker(
+                Company(
                     name = "안성용",
                     introduction = "안드로이드 개발자",
                     imageUrl = "https://picsum.photos/200",
@@ -273,7 +273,7 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Sessio
             ),
             startTime = LocalDateTime(2023, 9, 12, 16, 10, 0),
             endTime = LocalDateTime(2023, 9, 12, 16, 45, 0),
-            room = Room.TRACK1,
+            category = Category.JOB,
             isBookmarked = false,
         ),
     )
@@ -282,9 +282,9 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Sessio
 @Preview
 @Composable
 private fun SessionCardPreview(
-    @PreviewParameter(SessionPreviewParameterProvider::class) session: Session,
+    @PreviewParameter(SessionPreviewParameterProvider::class) recruit: Recruit,
 ) {
     KnightsTheme {
-        SessionCard(session)
+        SessionCard(recruit)
     }
 }

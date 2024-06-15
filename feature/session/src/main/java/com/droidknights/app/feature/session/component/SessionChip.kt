@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import com.droidknights.app.core.designsystem.component.TextChip
 import com.droidknights.app.core.designsystem.theme.DarkGray
 import com.droidknights.app.core.designsystem.theme.LightGray
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.core.model.Tag
 import com.droidknights.app.core.ui.textRes
 import com.droidknights.app.feature.session.R
@@ -25,15 +25,15 @@ import kotlinx.datetime.toJavaLocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-internal fun SessionChips(session: Session) {
+internal fun SessionChips(recruit: Recruit) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val sessionTags = session.tags.toPersistentList()
+        val sessionTags = recruit.tags.toPersistentList()
 
-        TrackChip(room = session.room)
-        TimeChip(dateTime = session.startTime)
+        TrackChip(category = recruit.category)
+        TimeChip(dateTime = recruit.startTime)
         sessionTags.forEach { tag ->
             TagChip(tag = tag)
         }
@@ -50,9 +50,9 @@ internal fun TagChip(tag: Tag) {
 }
 
 @Composable
-internal fun TrackChip(room: Room) {
+internal fun TrackChip(category: Category) {
     TextChip(
-        text = stringResource(id = room.textRes),
+        text = stringResource(id = category.textRes),
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
     )
@@ -71,12 +71,12 @@ internal fun TimeChip(dateTime: LocalDateTime) {
     )
 }
 
-internal class RoomPreviewParameterProvider : PreviewParameterProvider<Room> {
+internal class RoomPreviewParameterProvider : PreviewParameterProvider<Category> {
     override val values = sequenceOf(
-        Room.TRACK1,
-        Room.TRACK2,
-        Room.TRACK3,
-        Room.ETC
+        Category.JOB,
+        Category.PART_TIME,
+        Category.SIDE_JOB,
+        Category.ETC
     )
 }
 
@@ -89,9 +89,9 @@ private fun TagChipPreview() {
 @Preview
 @Composable
 fun TrackChipPreview(
-    @PreviewParameter(RoomPreviewParameterProvider::class) room: Room,
+    @PreviewParameter(RoomPreviewParameterProvider::class) category: Category,
 ) {
-    TrackChip(room)
+    TrackChip(category)
 }
 
 @Preview

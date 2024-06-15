@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.core.navigation.Route
 import com.droidknights.app.feature.session.SessionDetailScreen
 import com.droidknights.app.feature.session.SessionScreen
@@ -20,7 +20,7 @@ fun NavController.navigateSessionDetail(sessionId: String) {
 
 fun NavGraphBuilder.sessionNavGraph(
     onBackClick: () -> Unit,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (Recruit) -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     composable<SessionRoute> {

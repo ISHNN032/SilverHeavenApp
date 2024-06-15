@@ -35,9 +35,9 @@ class SessionViewModel @Inject constructor(
             getBookmarkedSessionIdsUseCase()
         ) { sessions, bookmarkedIds ->
             SessionUiState.Sessions(
-                sessions = sessions
-                    .map { session ->
-                        session.copy(isBookmarked = bookmarkedIds.contains(session.id))
+                recruits = sessions
+                    .map { recruit ->
+                        recruit.copy(isBookmarked = bookmarkedIds.contains(recruit.id))
                     }
                     .toPersistentList()
             )

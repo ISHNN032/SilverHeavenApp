@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Room
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Category
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.core.ui.RoomText
 import com.droidknights.app.feature.session.component.SessionCard
 import com.droidknights.app.feature.session.component.SessionTopAppBar
@@ -42,14 +42,14 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 internal fun SessionScreen(
     onBackClick: () -> Unit,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (Recruit) -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
     sessionViewModel: SessionViewModel = hiltViewModel(),
 ) {
     val sessionUiState by sessionViewModel.uiState.collectAsStateWithLifecycle()
-    val sessionState = (sessionUiState as? SessionUiState.Sessions)?.sessions?.let { sessions ->
-        rememberSessionState(sessions = sessions) // SessionUiState.Sessions
-    } ?: rememberSessionState(sessions = persistentListOf()) // SessionUiState.Loading, SessionUiState.Error
+    val sessionState = (sessionUiState as? SessionUiState.Sessions)?.recruits?.let { sessions ->
+        rememberSessionState(recruits = sessions) // SessionUiState.Sessions
+    } ?: rememberSessionState(recruits = persistentListOf()) // SessionUiState.Loading, SessionUiState.Error
 
     LaunchedEffect(Unit) {
         sessionViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackBar(throwable) }
@@ -71,7 +71,7 @@ internal fun SessionScreen(
 @Composable
 private fun SessionList(
     sessionState: SessionState,
-    onSessionClick: (Session) -> Unit,
+    onSessionClick: (Recruit) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -81,19 +81,19 @@ private fun SessionList(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         sessionState.groups.forEachIndexed { groupIndex, group ->
-            itemsIndexed(group.sessions) { sessionIndex, session ->
+            itemsIndexed(group.recruits) { sessionIndex, session ->
                 val isFirstSession = sessionIndex == 0
                 val isLastGroup = groupIndex == sessionState.groups.size - 1
-                val isLastSession = sessionIndex == group.sessions.size - 1
+                val isLastSession = sessionIndex == group.recruits.size - 1
 
                 Column {
                     if (isFirstSession) {
                         RoomTitle(
-                            room = group.room,
+                            category = group.category,
                             topPadding = if (groupIndex == 0) SessionTopSpace else SessionGroupSpace,
                         )
                     }
-                    SessionCard(session = session, onSessionClick = onSessionClick)
+                    SessionCard(recruit = session, onSessionClick = onSessionClick)
                 }
 
                 if (isLastGroup && isLastSession) {
@@ -106,12 +106,12 @@ private fun SessionList(
 
 @Composable
 private fun RoomTitle(
-    room: Room,
+    category: Category,
     topPadding: Dp,
 ) {
     Column(modifier = Modifier.padding(start = 20.dp, top = topPadding, end = 20.dp)) {
         RoomText(
-            room = room,
+            category = category,
             style = KnightsTheme.typography.titleLargeB,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
         )

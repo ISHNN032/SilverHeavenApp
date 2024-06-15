@@ -1,0 +1,53 @@
+[
+  {
+    "id": "1",
+    "image_url": "https://aexample.com/image1.jpg",
+    "title": "고령자를 위한 사무직 채용",
+    "content": "고령자분들을 위한 사무직 채용 정보입니다. 주 3일 근무, 유연근무제 가능합니다.",
+    "companies": [
+      {
+        "name": "행복한 회사",
+        "introduction": "고령자를 위한 일자리를 제공하는 회사입니다.",
+        "imageUrl": "https://example.com/company1.jpg"
+      }
+    ],
+    "tags": ["고령자", "사무직", "유연근무"],
+    "category": "Job",
+    "startTime": "2024-06-01T09:00:00",
+    "endTime": "2024-06-30T18:00:00"
+  },
+  {
+    "id": "2",
+    "image_url": "https://example.com/image2.jpg",
+    "title": "고령자를 위한 파트타임 채용",
+    "content": "고령자분들을 위한 파트타임 채용 정보입니다. 주 2일 근무, 시간 조정 가능.",
+    "companies": [
+      {
+        "name": "건강한 식당",
+        "introduction": "고령자분들을 위한 건강한 식사를 제공하는 식당입니다.",
+        "imageUrl": "https://example.com/company2.jpg"
+      }
+    ],
+    "tags": ["고령자", "파트타임", "유연근무"],
+    "category": "PartTime",
+    "startTime": "2024-07-01T10:00:00",
+    "endTime": "2024-07-31T17:00:00"
+  },
+  {
+    "id": "3",
+    "image_url": "https://example.com/image3.jpg",
+    "title": "고령자를 위한 부업 채용",
+    "content": "고령자분들을 위한 부업 채용 정보입니다. 주 1일 근무, 재택 가능.",
+    "companies": [
+      {
+        "name": "편안한 재택",
+        "introduction": "고령자분들에게 편안한 재택 근무 환경을 제공하는 회사입니다.",
+        "imageUrl": "https://example.com/company3.jpg"
+      }
+    ],
+    "tags": ["고령자", "부업", "재택근무"],
+    "category": "SideJob",
+    "startTime": "2024-08-01T08:00:00",
+    "endTime": "2024-08-31T15:00:00"
+  }
+]

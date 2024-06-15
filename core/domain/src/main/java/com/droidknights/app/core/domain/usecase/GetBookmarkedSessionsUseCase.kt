@@ -1,6 +1,6 @@
 package com.droidknights.app.core.domain.usecase
 
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
@@ -10,7 +10,7 @@ class GetBookmarkedSessionsUseCase @Inject constructor(
     private val getBookmarkedSessionIdsUseCase: GetBookmarkedSessionIdsUseCase,
 ) {
 
-    operator fun invoke(): Flow<List<Session>> =
+    operator fun invoke(): Flow<List<Recruit>> =
         combine(
             getSessionsUseCase(),
             getBookmarkedSessionIdsUseCase()

@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.core.model.Session
+import com.droidknights.app.core.model.Recruit
 import com.droidknights.app.feature.bookmark.component.BookmarkCard
 import com.droidknights.app.feature.bookmark.component.BookmarkItem
 import com.droidknights.app.feature.bookmark.component.BookmarkTimelineItem
@@ -76,7 +76,7 @@ internal fun BookmarkRoute(
 private fun BookmarkContent(
     uiState: BookmarkUiState,
     toggleEditMode: () -> Unit,
-    onSelectedItem: (Session) -> Unit,
+    onSelectedItem: (Recruit) -> Unit,
     onDeletedSessions: () -> Unit,
 ) {
     when (uiState) {
@@ -105,7 +105,7 @@ private fun BookmarkScreen(
     bookmarkItems: ImmutableList<BookmarkItemUiState>,
     toggleEditMode: () -> Unit,
     selectedSessionIds: ImmutableSet<String>,
-    onSelectedItem: (Session) -> Unit,
+    onSelectedItem: (Recruit) -> Unit,
     onDeletedSessions: () -> Unit,
     listContentBottomPadding: Dp = 72.dp,
 ) {
@@ -161,7 +161,7 @@ private fun BookmarkList(
     bookmarkItems: ImmutableList<BookmarkItemUiState>,
     selectedSessionIds: ImmutableSet<String>,
     isEditMode: Boolean,
-    onSelectedItem: (Session) -> Unit
+    onSelectedItem: (Recruit) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -169,9 +169,9 @@ private fun BookmarkList(
     ) {
         items(
             items = bookmarkItems,
-            key = { item -> item.session.id }
+            key = { item -> item.recruit.id }
         ) { itemState ->
-            val isSelected = selectedSessionIds.contains(itemState.session.id)
+            val isSelected = selectedSessionIds.contains(itemState.recruit.id)
             BookmarkItem(
                 modifier = Modifier
                     .background(
@@ -202,8 +202,8 @@ private fun BookmarkList(
                 midContent = @Composable {
                     BookmarkCard(
                         tagLabel = itemState.tagLabel,
-                        room = itemState.session.room,
-                        title = itemState.session.title,
+                        category = itemState.recruit.category,
+                        title = itemState.recruit.title,
                         speaker = itemState.speakerLabel
                     )
                 },

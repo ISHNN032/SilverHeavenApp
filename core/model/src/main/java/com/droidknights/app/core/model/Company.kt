@@ -1,6 +1,6 @@
 package com.droidknights.app.core.model
 
-data class Speaker(
+data class Company(
     val name: String,
     val introduction: String,
     val imageUrl: String,
