@@ -2,6 +2,7 @@ package com.droidknights.app.core.data.repository
 
 import com.droidknights.app.core.data.api.AwsLambdaApi
 import com.droidknights.app.core.data.mapper.toData
+import com.droidknights.app.core.data.mapper.toResponse
 import com.droidknights.app.core.data.repository.api.UserRepository
 import com.droidknights.app.core.datastore.datasource.UserPreferencesDataSource
 import com.droidknights.app.core.model.User
@@ -33,11 +34,13 @@ class DefaultUserRepository @Inject constructor(
     }
 
     override suspend fun registerUser(user: User): User {
-        return awsLambdaApi.createUser(user).toData()
+        val userResponse = user.toResponse();
+        return awsLambdaApi.createUser(userResponse).toData()
     }
 
     override suspend fun updateUser(user: User): User {
-        return awsLambdaApi.updateUser(user).toData()
+        val userResponse = user.toResponse();
+        return awsLambdaApi.updateUser(userResponse).toData()
     }
 
     override fun getTags(): Flow<Set<String>> {

@@ -2,7 +2,6 @@ package com.droidknights.app.core.data.api
 
 import com.droidknights.app.core.data.api.model.RecruitResponse
 import com.droidknights.app.core.data.api.model.UserResponse
-import com.droidknights.app.core.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,10 +11,10 @@ interface AwsLambdaApi {
     suspend fun getUsers(): List<UserResponse>
 
     @POST("users/register")
-    suspend fun createUser(@Body user: User): UserResponse
+    suspend fun createUser(@Body user: UserResponse): UserResponse
 
     @POST("users/update")
-    suspend fun updateUser(@Body user: User): UserResponse
+    suspend fun updateUser(@Body user: UserResponse): UserResponse
 
     @GET("recruits/all")
     suspend fun getRecruits(): List<RecruitResponse>

@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserResponse(
-    @SerialName("id") val id: String,
+    @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
-    @SerialName("phone_number") val phoneNumber: String,
+    @SerialName("phoneNumber") val phoneNumber: String,
     @SerialName("birthday") val birthday: String,
     @SerialName("location")val location: String,
     @SerialName("job")val job: String,

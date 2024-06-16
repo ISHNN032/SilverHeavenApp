@@ -4,10 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application>
         <activity
-            android:name=".MainActivity"
-            android:configChanges="uiMode"
+            android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.DroidKnights.TransparentSystemBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -15,6 +14,17 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="uiMode"
+            android:exported="true"
+            android:theme="@style/Theme.DroidKnights.TransparentSystemBar">
+        </activity>
 
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+        </activity>
+    </application>
 </manifest>
