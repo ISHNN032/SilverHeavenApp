@@ -16,6 +16,7 @@ import com.droidknights.app.core.data.repository.api.SettingsRepository
 import com.droidknights.app.core.data.repository.api.SponsorRepository
 import com.droidknights.app.core.data.repository.api.UserRepository
 import com.droidknights.app.core.datastore.datasource.DefaultSessionPreferencesDataSource
+import com.droidknights.app.core.datastore.datasource.DefaultUserPreferencesDataSource
 import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
 import com.droidknights.app.core.datastore.datasource.UserPreferencesDataSource
 import dagger.Binds
@@ -40,6 +41,16 @@ internal abstract class DataModule {
     abstract fun bindSessionLocalDataSource(
         dataSource: DefaultSessionPreferencesDataSource,
     ): SessionPreferencesDataSource
+
+    @Binds
+    abstract fun bindUserRepository(
+        repository: DefaultUserRepository,
+    ): UserRepository
+
+    @Binds
+    abstract fun bindUserLocalDataSource(
+        dataSource: DefaultUserPreferencesDataSource,
+    ): UserPreferencesDataSource
 
     @InstallIn(SingletonComponent::class)
     @Module

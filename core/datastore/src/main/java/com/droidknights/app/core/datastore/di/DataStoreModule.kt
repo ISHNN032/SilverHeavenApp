@@ -24,6 +24,10 @@ object DataStoreModule {
 
     private val Context.sessionDataStore by preferencesDataStore(SESSION_DATASTORE_NAME)
 
+    private const val USER_DATASTORE_NAME = "USER_PREFERENCES"
+
+    private val Context.userDataStore by preferencesDataStore(USER_DATASTORE_NAME)
+
     @Provides
     @Singleton
     @Named("setting")
@@ -39,4 +43,12 @@ object DataStoreModule {
         @ApplicationContext context: Context,
     ): DataStore<Preferences> =
         context.sessionDataStore
+
+    @Provides
+    @Singleton
+    @Named("user")
+    fun provideUserDataStore(
+        @ApplicationContext context: Context,
+    ): DataStore<Preferences> =
+        context.userDataStore
 }

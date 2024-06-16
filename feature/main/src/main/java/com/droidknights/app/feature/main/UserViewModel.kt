@@ -4,17 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidknights.app.core.data.repository.DefaultUserRepository
 import com.droidknights.app.core.model.User
-import com.droidknights.app.feature.session.model.SessionDetailUiState
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class UserViewModel @Inject constructor(
     private val userRepository: DefaultUserRepository
 ) : ViewModel() {
-    val user: User? = null
-
     fun registerUser(user: User) {
         viewModelScope.launch {
             userRepository.registerUser(user)
@@ -31,8 +28,6 @@ class UserViewModel @Inject constructor(
     fun updateUser(jsonString: String) {
         viewModelScope.launch {
 
-//            userRepository.updateUser(user)
-//            userRepository.updateTags(user.tags.map { it.name }.toSet())
         }
     }
 }

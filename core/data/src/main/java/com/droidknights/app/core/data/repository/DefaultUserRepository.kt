@@ -44,7 +44,7 @@ class DefaultUserRepository @Inject constructor(
         return tags.filterNotNull()
     }
 
-    override suspend fun updateTags(_tags: Set<String>) {
-        userDataSource.updateTags(_tags)
+    override suspend fun updateTags(tags: Set<String>) {
+        userDataSource.updateTags(tags)
     }
 }
