@@ -1,7 +1,7 @@
 [
   {
-    "id": "1",
-    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_c.png",
+    "id": 1,
+    "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_c.png",
     "title": "고령자를 위한 사무직 채용",
     "content": "고령자분들을 위한 사무직 채용 정보입니다. 주 3일 근무, 유연근무제 가능합니다.",
     "companies": [
@@ -11,14 +11,18 @@
         "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_c.png"
       }
     ],
-    "tags": ["고령자", "사무직", "유연근무"],
-    "category": "Job",
+    "tags": [
+      {"name": "고령자"},
+      {"name": "부업"},
+      {"name": "유연근무"}
+    ],
+    "category": "JOB",
     "startTime": "2024-06-01T09:00:00",
     "endTime": "2024-06-30T18:00:00"
   },
   {
-    "id": "2",
-    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_e.png",
+    "id": 2,
+    "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_e.png",
     "title": "고령자를 위한 파트타임 채용",
     "content": "고령자분들을 위한 파트타임 채용 정보입니다. 주 2일 근무, 시간 조정 가능.",
     "companies": [
@@ -28,14 +32,18 @@
         "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_e.png"
       }
     ],
-    "tags": ["고령자", "파트타임", "유연근무"],
-    "category": "PartTime",
+    "tags": [
+      {"name": "고령자"},
+      {"name": "부업"},
+      {"name": "유연근무"}
+    ],
+    "category": "PART_TIME",
     "startTime": "2024-07-01T10:00:00",
     "endTime": "2024-07-31T17:00:00"
   },
   {
-    "id": "3",
-    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_cw.png",
+    "id": 3,
+    "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_cw.png",
     "title": "고령자를 위한 부업 채용",
     "content": "고령자분들을 위한 부업 채용 정보입니다. 주 1일 근무, 재택 가능.",
     "companies": [
@@ -45,8 +53,12 @@
         "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_cw.png"
       }
     ],
-    "tags": ["고령자", "부업", "재택근무"],
-    "category": "SideJob",
+    "tags": [
+      {"name": "고령자"},
+      {"name": "부업"},
+      {"name": "유연근무"}
+    ],
+    "category": "SIDE_JOB",
     "startTime": "2024-08-01T08:00:00",
     "endTime": "2024-08-31T15:00:00"
   }

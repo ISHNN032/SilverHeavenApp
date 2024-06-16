@@ -3,7 +3,7 @@ package com.droidknights.app.core.data.repository.api
 import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
 
-interface SessionRepository {
+interface RecruitRepository {
 
     suspend fun getRecruits(): List<Recruit>
 

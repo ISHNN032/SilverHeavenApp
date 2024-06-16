@@ -1,14 +1,14 @@
 package com.droidknights.app.core.domain.usecase
 
-import com.droidknights.app.core.data.repository.api.SessionRepository
+import com.droidknights.app.core.data.repository.api.RecruitRepository
 import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-internal class FakeSessionRepository(
+internal class FakeRecruitRepository(
     private val bookmarkedSessionIds: Set<String>,
     private val recruits: List<Recruit>
-) : SessionRepository {
+) : RecruitRepository {
 
     override suspend fun getRecruits(): List<Recruit> {
         return recruits

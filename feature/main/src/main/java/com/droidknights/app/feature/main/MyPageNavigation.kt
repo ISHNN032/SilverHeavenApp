@@ -1,7 +1,5 @@
 package com.droidknights.app.feature.main
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions

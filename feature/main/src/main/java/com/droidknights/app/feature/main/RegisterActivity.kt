@@ -3,8 +3,16 @@ package com.droidknights.app.feature.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.droidknights.app.core.data.repository.DefaultUserRepository
+import com.droidknights.app.core.model.User
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentInteractionListener, Register2Fragment.OnFragmentInteractionListener, Register3Fragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener {
+class RegisterActivity @Inject constructor(
+    private val userRepository: DefaultUserRepository
+) : AppCompatActivity(), Register1Fragment.OnFragmentInteractionListener, Register2Fragment.OnFragmentInteractionListener, Register3Fragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener {
 
     private val registrationData = RegistrationData()
 
@@ -43,10 +51,28 @@ class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentIntera
         loadFragment(register3Fragment)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onRegister3Submit(hobby: String) {
         registrationData.hobby = hobby
 
         // 모든 데이터를 모아서 처리하거나 저장하는 로직 추가
+        GlobalScope.launch {
+            userRepository.registerUser(
+                User(
+                    id = "",
+                    name = registrationData.name!!,
+                    phoneNumber = registrationData.phoneNumber!!,
+                    birthday = registrationData.birthday!!,
+                    location = registrationData.location!!,
+                    email = registrationData.email!!,
+                    password = registrationData.password!!,
+                    job = registrationData.job!!,
+                    hobby = registrationData.hobby!!,
+                    tags = emptyList()
+                )
+            )
+        }
+
         showMyPage()
     }
 

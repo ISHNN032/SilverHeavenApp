@@ -1,13 +1,13 @@
 package com.droidknights.app.core.domain.usecase
 
-import com.droidknights.app.core.data.repository.api.SessionRepository
+import com.droidknights.app.core.data.repository.api.RecruitRepository
 import com.droidknights.app.core.model.Recruit
 import javax.inject.Inject
 
 class GetSessionUseCase @Inject constructor(
-    private val sessionRepository: SessionRepository,
+    private val recruitRepository: RecruitRepository,
 ) {
 
     suspend operator fun invoke(sessionId: String): Recruit =
-        sessionRepository.getRecruit(sessionId)
+        recruitRepository.getRecruit(sessionId)
 }

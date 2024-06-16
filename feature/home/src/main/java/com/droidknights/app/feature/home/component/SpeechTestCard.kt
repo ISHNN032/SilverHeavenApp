@@ -44,6 +44,17 @@ fun SpeechTestCard(
     onSpeechTextReceived: @Composable (String) -> Unit,
     onGeneratedTextReceived: @Composable (String) -> Unit
 ) {
+    val startString = "지금부터 나한테 이런 순서로 질문을 해줘 답변을 다 받으면 내 답변을 토대로 json 파일을 만들어줘.\n" +
+            "\n" +
+            "1. 이름\n" +
+            "2. 취미\n" +
+            "3. 전공\n" +
+            "4. 사는 동네\n" +
+            "5. 몸 불편한 곳은 없는지\n"+
+            "6. 가입목적\n" +
+            "대답은 하지 말고, 바로 인사하고 질문부터 시작해줘. 질문은 어르신한테 하는 거니까 공손하게. 번호는 붙이지 말고," +
+            "직업이나 취미를 가지기 위해서 tag를 추천하려고 하는데, 그걸 String[]형태로 json에 추가해줘"
+
     val chatGPTApi = Retrofit.Builder()
         .baseUrl("https://api.openai.com/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -100,15 +111,7 @@ fun SpeechTestCard(
 //                        putExtra(RecognizerIntent.EXTRA_SECURE, true)
 //                    }
 //                    activityResultLauncher.launch(recognizerIntent)
-                    val startString = "지금부터 나한테 이런 순서로 질문을 해줘 질문을 받으면 내 답변을 json 파일로 만들어줘\n" +
-                            "\n" +
-                            "1. 이름\n" +
-                            "2. 취미\n" +
-                            "3. 전공\n" +
-                            "4. 주소\n" +
-                            "5. 가입목적\n" +
-                            "대답은 하지 말고, 바로 질문부터 시작해줘"
-                    viewModel.speechText(startString)
+                    //viewModel.speechText(startString)
                     viewModel.generateText(startString)
                 }
             ) {

@@ -1,8 +1,8 @@
 package com.droidknights.app.core.data.repository
 
-import com.droidknights.app.core.data.api.GithubRawApi
+import com.droidknights.app.core.data.api.AwsLambdaApi
 import com.droidknights.app.core.data.mapper.toData
-import com.droidknights.app.core.data.repository.api.SessionRepository
+import com.droidknights.app.core.data.repository.api.RecruitRepository
 import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
 import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
@@ -10,17 +10,17 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-internal class DefaultSessionRepository @Inject constructor(
-    private val githubRawApi: GithubRawApi,
+internal class DefaultRecruitRepository @Inject constructor(
+    private val awsLambdaApi: AwsLambdaApi,
     private val sessionDataSource: SessionPreferencesDataSource
-) : SessionRepository {
+) : RecruitRepository {
 
     private var cachedRecruits: List<Recruit> = emptyList()
 
     private val bookmarkIds: Flow<Set<String>> = sessionDataSource.bookmarkedSession
 
     override suspend fun getRecruits(): List<Recruit> {
-        return githubRawApi.getRecruits()
+        return awsLambdaApi.getRecruits()
             .map { it.toData() }
             .also { cachedRecruits = it }
     }

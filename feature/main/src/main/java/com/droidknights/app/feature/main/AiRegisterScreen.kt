@@ -1,6 +1,6 @@
 package com.droidknights.app.feature.main
 
-import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,14 +31,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.droidknights.app.core.data.api.model.ContributionYearResponse
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.model.Recruit
@@ -57,25 +58,24 @@ data class SpeechData (
 )
 
 @Composable
-internal fun AiRegisterScreen(
+internal fun AiRegisterScreen (
     onBackClick: () -> Unit,
     onResultClick: (Recruit) -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
-    sessionViewModel: SessionViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
     val speechDataList = remember { mutableStateOf(mutableListOf<SpeechData>()) }
-    var previousGeneratedText by remember { mutableStateOf("") }
+    var previousSpeechText by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        sessionViewModel.errorFlow.collectLatest { throwable -> onShowErrorSnackBar(throwable) }
+
     }
 
     var speechText by remember { mutableStateOf("") }
     var generatedText by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(bottom = 32.dp)
     ) {
         TopBar(
             onBackClick = onBackClick
@@ -85,15 +85,18 @@ internal fun AiRegisterScreen(
 
         SpeechTestCard(
             onSpeechTextReceived = { text ->
-                speechText = text
+                if (text != previousSpeechText) {
+                    speechText = text
+                    previousSpeechText = text
+                    speechDataList.value = speechDataList.value.toMutableList().apply {
+                        add(SpeechData(generatedText, text))
+                    }
+                }
             },
             onGeneratedTextReceived = { text ->
-                if (text != previousGeneratedText) {
-                    generatedText = text
-                    speechDataList.value = speechDataList.value.toMutableList().apply {
-                        add(SpeechData(speechText, text))
-                    }
-                    previousGeneratedText = text
+                generatedText = text
+                if (text.contains("```json")) {
+                    userViewModel.updateUser(text)
                 }
             },
 
@@ -146,16 +149,56 @@ fun SpeechDataList(
             .padding(horizontal = 16.dp)
     ) {
         items(speechDataList) { item ->
-            Text(
-                text = ">:\n ${item.request}",
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            Text(
-                text = "<:\n ${item.response}",
-                modifier = Modifier.padding(vertical = 8.dp)
+            QuestionAnswerBox(
+                item.request, item.response
             )
         }
+    }
+}
+
+@Composable
+fun QuestionAnswerBox(
+    question: String,
+    answer: String,
+    modifier: Modifier = Modifier
+) {
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Color(0xFF8BC34A),
+                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                )
+                .padding(16.dp)
+        ) {
+            Text(
+                text = question,
+                style = TextStyle(
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Color(0xFFDCEDC8),
+                    shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+                )
+                .padding(16.dp)
+        ) {
+            Text(
+                text = answer,
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 

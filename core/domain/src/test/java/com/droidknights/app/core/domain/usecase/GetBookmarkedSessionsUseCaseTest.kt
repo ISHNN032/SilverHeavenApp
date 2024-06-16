@@ -13,14 +13,14 @@ import kotlinx.datetime.LocalDateTime
 
 internal class GetBookmarkedSessionsUseCaseTest : BehaviorSpec() {
 
-    private val fakeSessionsRepository = FakeSessionRepository(
+    private val fakeSessionsRepository = FakeRecruitRepository(
         bookmarkedSessionIds = bookmarkedSessionIds,
         recruits = recruits
     )
 
     private val useCase: GetBookmarkedSessionsUseCase = GetBookmarkedSessionsUseCase(
-        getSessionsUseCase = GetSessionsUseCase(sessionRepository = fakeSessionsRepository),
-        getBookmarkedSessionIdsUseCase = GetBookmarkedSessionIdsUseCase(sessionRepository = fakeSessionsRepository)
+        getSessionsUseCase = GetSessionsUseCase(recruitRepository = fakeSessionsRepository),
+        getBookmarkedSessionIdsUseCase = GetBookmarkedSessionIdsUseCase(recruitRepository = fakeSessionsRepository)
     )
 
     init {

@@ -10,12 +10,12 @@ import com.droidknights.app.core.model.Tag
 
 internal fun RecruitResponse.toData(): Recruit =
     Recruit(
-        id = this.id,
+        id = this.id.toString(),
         title = this.title,
         content = this.content,
         imageUrl = this.imageUrl,
         companies = this.companies.map { it.toData() },
-        tags = this.tags.map { Tag(it) },
+        tags = this.tags.map { Tag(it.name) },
         category = this.category?.toData() ?: Category.ETC,
         startTime = this.startTime,
         endTime = this.endTime,

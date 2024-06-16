@@ -3,7 +3,7 @@ package com.droidknights.app.core.data.repository
 import app.cash.turbine.test
 import com.droidknights.app.core.data.api.fake.FakeGithubRawApi
 import com.droidknights.app.core.data.datastore.fake.FakeSessionPreferencesDataSource
-import com.droidknights.app.core.data.repository.api.SessionRepository
+import com.droidknights.app.core.data.repository.api.RecruitRepository
 import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.model.Recruit
 import io.kotest.core.spec.style.StringSpec
@@ -13,7 +13,7 @@ import kotlinx.datetime.LocalDateTime
 internal class DefaultSessionRepositoryTest : StringSpec() {
 
     init {
-        val repository: SessionRepository = DefaultSessionRepository(
+        val repository: RecruitRepository = DefaultRecruitRepository(
             githubRawApi = FakeGithubRawApi(),
             sessionDataSource = FakeSessionPreferencesDataSource()
         )

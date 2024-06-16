@@ -1,5 +1,6 @@
 package com.droidknights.app.core.data.di
 
+import com.droidknights.app.core.data.api.AwsLambdaApi
 import com.droidknights.app.core.data.api.GithubApi
 import com.droidknights.app.core.data.api.GithubRawApi
 import dagger.Module
@@ -28,6 +29,19 @@ internal object ApiModule {
         json: Json,
     ): Converter.Factory {
         return json.asConverterFactory("application/json".toMediaType())
+    }
+
+    @Provides
+    @Singleton
+    fun provideAwsLambdaApi(
+        okHttpClient: OkHttpClient,
+        converterFactory: Converter.Factory,
+    ): AwsLambdaApi {
+        return Retrofit.Builder()
+            .baseUrl("https://3496qxk81c.execute-api.us-east-2.amazonaws.com/Prod/")
+            .addConverterFactory(converterFactory)
+            .client(okHttpClient).build()
+            .create(AwsLambdaApi::class.java)
     }
 
     @Provides
