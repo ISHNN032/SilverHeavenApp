@@ -13,6 +13,7 @@ internal fun RecruitResponse.toData(): Recruit =
         id = this.id,
         title = this.title,
         content = this.content,
+        imageUrl = this.imageUrl,
         companies = this.companies.map { it.toData() },
         tags = this.tags.map { Tag(it) },
         category = this.category?.toData() ?: Category.ETC,

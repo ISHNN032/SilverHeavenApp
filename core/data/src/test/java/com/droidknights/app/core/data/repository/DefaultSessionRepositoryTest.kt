@@ -22,6 +22,7 @@ internal class DefaultSessionRepositoryTest : StringSpec() {
                 id = "1",
                 title = "키노트",
                 content = "",
+                imageUrl = "",
                 companies = emptyList(),
                 tags = emptyList(),
                 category = Category.ETC,

@@ -48,7 +48,7 @@ private fun TextChipPreview() {
     MaterialTheme {
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             TextChip(
-                "카테고리",
+                "태그",
                 containerColor = DarkGray,
                 labelColor = LightGray,
             )

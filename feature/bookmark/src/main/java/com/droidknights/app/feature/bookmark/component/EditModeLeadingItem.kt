@@ -70,6 +70,7 @@ private val SampleBookmarkItemUiState = BookmarkItemUiState(
         id = "1",
         title = "Session Title",
         content = "Compose 성능 최적화를 위한 Stability 마스터하기",
+        imageUrl = "",
         companies = emptyList(),
         tags = emptyList(),
         category = Category.JOB,

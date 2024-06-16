@@ -1,14 +1,14 @@
 [
   {
     "id": "1",
-    "image_url": "https://example.com/image1.jpg",
+    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_c.png",
     "title": "고령자를 위한 사무직 채용",
     "content": "고령자분들을 위한 사무직 채용 정보입니다. 주 3일 근무, 유연근무제 가능합니다.",
     "companies": [
       {
         "name": "행복한 회사",
         "introduction": "고령자를 위한 일자리를 제공하는 회사입니다.",
-        "imageUrl": "https://example.com/company1.jpg"
+        "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_c.png"
       }
     ],
     "tags": ["고령자", "사무직", "유연근무"],
@@ -18,14 +18,14 @@
   },
   {
     "id": "2",
-    "image_url": "https://example.com/image2.jpg",
+    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_e.png",
     "title": "고령자를 위한 파트타임 채용",
     "content": "고령자분들을 위한 파트타임 채용 정보입니다. 주 2일 근무, 시간 조정 가능.",
     "companies": [
       {
         "name": "건강한 식당",
         "introduction": "고령자분들을 위한 건강한 식사를 제공하는 식당입니다.",
-        "imageUrl": "https://example.com/company2.jpg"
+        "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_e.png"
       }
     ],
     "tags": ["고령자", "파트타임", "유연근무"],
@@ -35,14 +35,14 @@
   },
   {
     "id": "3",
-    "image_url": "https://example.com/image3.jpg",
+    "image_url": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/recruit/recruit_page_cw.png",
     "title": "고령자를 위한 부업 채용",
     "content": "고령자분들을 위한 부업 채용 정보입니다. 주 1일 근무, 재택 가능.",
     "companies": [
       {
         "name": "편안한 재택",
         "introduction": "고령자분들에게 편안한 재택 근무 환경을 제공하는 회사입니다.",
-        "imageUrl": "https://example.com/company3.jpg"
+        "imageUrl": "https://raw.githubusercontent.com/ISHNN032/SilverHeavenApp/main/storage/company/logo_cw.png"
       }
     ],
     "tags": ["고령자", "부업", "재택근무"],

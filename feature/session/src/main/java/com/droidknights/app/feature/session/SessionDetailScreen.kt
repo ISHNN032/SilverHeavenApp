@@ -1,14 +1,18 @@
 package com.droidknights.app.feature.session
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -22,7 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -30,6 +36,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.droidknights.app.core.designsystem.component.NetworkImage
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.model.Recruit
@@ -125,7 +132,7 @@ private fun SessionDetailContent(recruit: Recruit) {
 
         if (recruit.content.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
-            SessionOverview(content = recruit.content)
+            SessionOverview(imageUrl = recruit.imageUrl, content = recruit.content)
         }
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -141,12 +148,16 @@ private fun SessionDetailContent(recruit: Recruit) {
 }
 
 @Composable
-private fun SessionOverview(content: String) {
+private fun SessionOverview(imageUrl: String, content: String) {
     Column {
         Text(
-            text = stringResource(id = R.string.session_overview_title),
+            text = stringResource(id = R.string.recruit_overview_title),
             style = KnightsTheme.typography.titleSmallB,
             color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+        NetworkImage(
+            imageUrl = imageUrl,
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(4.dp))
         Text(
@@ -161,6 +172,7 @@ private val SampleRecruitHasContent = Recruit(
     id = "2",
     title = "세션 제목은 세션 제목 - 개요 있음",
     content = "세션에 대한 소개와 세션에서의 장단점과 세션을 실제로 사용한 사례와 세션 내용에 대한 QnA 진행",
+    imageUrl = "",
     companies = listOf(
         Company(
             name = "스피커1",
@@ -179,6 +191,7 @@ private val SampleRecruitNoContent = Recruit(
     id = "2",
     title = "세션 제목은 세션 제목 - 개요 없음",
     content = "",
+    imageUrl = "",
     companies = listOf(
         Company(
             name = "스피커1",
@@ -236,6 +249,6 @@ private fun SessionDetailSpeakerPreview() {
 @Composable
 private fun SessionOverviewPreview() {
     KnightsTheme {
-        SessionOverview(SampleRecruitHasContent.content)
+        SessionOverview(SampleRecruitHasContent.imageUrl, SampleRecruitHasContent.content)
     }
 }

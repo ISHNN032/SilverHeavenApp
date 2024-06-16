@@ -6,6 +6,7 @@ data class Recruit(
     val id: String,
     val title: String,
     val content: String,
+    val imageUrl: String,
     val companies: List<Company>,
     val tags: List<Tag>,
     val category: Category,

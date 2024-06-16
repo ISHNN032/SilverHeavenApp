@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -168,9 +169,8 @@ private fun SessionSpeakers(
             companies.forEach { speaker ->
                 NetworkImage(
                     imageUrl = speaker.imageUrl,
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(CircleShape),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.size(80.dp),
                     placeholder = painterResource(id = com.droidknights.app.core.ui.R.drawable.placeholder_speaker),
                 )
             }
@@ -211,6 +211,7 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Recrui
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
+            imageUrl = "",
             companies = listOf(
                 Company(
                     name = "안성용",
@@ -230,6 +231,7 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Recrui
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
+            imageUrl = "",
             companies = listOf(
                 Company(
                     name = "안성용",
@@ -249,6 +251,7 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Recrui
             id = "1",
             title = "Jetpack Compose에 있는 것, 없는 것",
             content = "",
+            imageUrl = "",
             companies = listOf(
                 Company(
                     name = "안성용",
@@ -274,6 +277,7 @@ internal class SessionPreviewParameterProvider : PreviewParameterProvider<Recrui
             startTime = LocalDateTime(2023, 9, 12, 16, 10, 0),
             endTime = LocalDateTime(2023, 9, 12, 16, 45, 0),
             category = Category.JOB,
+
             isBookmarked = false,
         ),
     )
