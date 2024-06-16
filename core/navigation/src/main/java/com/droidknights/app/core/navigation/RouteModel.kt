@@ -10,6 +10,9 @@ sealed interface Route {
     data object Session : Route
 
     @Serializable
+    data object AiRegister : Route
+
+    @Serializable
     data class SessionDetail(val sessionId: String) : Route
 }
 

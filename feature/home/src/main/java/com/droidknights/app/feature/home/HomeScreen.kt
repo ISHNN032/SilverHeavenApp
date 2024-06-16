@@ -31,6 +31,7 @@ internal fun HomeRoute(
     padding: PaddingValues,
     onSessionClick: () -> Unit,
     onContributorClick: () -> Unit,
+    onAiRegisterClick: () -> Unit,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -45,6 +46,7 @@ internal fun HomeRoute(
         sponsorsUiState = sponsorsUiState,
         onSessionClick = onSessionClick,
         onContributorClick = onContributorClick,
+        onAiRegisterClick = onAiRegisterClick
     )
 }
 
@@ -54,6 +56,7 @@ private fun HomeScreen(
     sponsorsUiState: SponsorsUiState,
     onSessionClick: () -> Unit,
     onContributorClick: () -> Unit,
+    onAiRegisterClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -66,29 +69,8 @@ private fun HomeScreen(
     ) {
         SessionCard(onClick = onSessionClick)
         ContributorCard(onClick = onContributorClick)
-        SponsorCard(uiState = sponsorsUiState)
-
-        var speechText by remember { mutableStateOf("") }
-        var generatedText by remember { mutableStateOf("") }
-
-        SpeechTestCard (
-            onSpeechTextReceived = { text ->
-                speechText = text
-            },
-            onGeneratedTextReceived = { text ->
-                generatedText = text
-            }
-        )
-
-        Text(
-            text = ">:\n $speechText",
-            modifier = Modifier.padding(16.dp)
-        )
-
-        Text(
-            text = "<:\n $generatedText",
-            modifier = Modifier.padding(16.dp)
-        )
+        SponsorCard(uiState = sponsorsUiState,
+            onClick = onAiRegisterClick)
     }
 }
 
@@ -103,5 +85,6 @@ private fun PreviewHomeScreen(
         sponsorsUiState = sponsorsUiState,
         onSessionClick = {},
         onContributorClick = {},
+        onAiRegisterClick = {}
     )
 }

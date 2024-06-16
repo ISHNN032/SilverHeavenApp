@@ -12,6 +12,7 @@ import com.droidknights.app.feature.bookmark.navigation.bookmarkNavGraph
 import com.droidknights.app.feature.contributor.navigation.contributorNavGraph
 import com.droidknights.app.feature.home.navigation.homeNavGraph
 import com.droidknights.app.feature.main.MainNavigator
+import com.droidknights.app.feature.main.aiRegisterNavGraph
 import com.droidknights.app.feature.main.myPageNavGraph
 import com.droidknights.app.feature.session.navigation.sessionNavGraph
 import com.droidknights.app.feature.setting.navigation.settingNavGraph
@@ -37,6 +38,7 @@ internal fun MainNavHost(
                 padding = padding,
                 onSessionClick = { navigator.navigateSession() },
                 onContributorClick = { navigator.navigateContributor() },
+                onAiRegisterClick = { navigator.navigateAiRegister() },
                 onShowErrorSnackBar = onShowErrorSnackBar
             )
             settingNavGraph(
@@ -60,6 +62,12 @@ internal fun MainNavHost(
             sessionNavGraph(
                 onBackClick = navigator::popBackStackIfNotHome,
                 onSessionClick = { navigator.navigateSessionDetail(it.id) },
+                onShowErrorSnackBar = onShowErrorSnackBar
+            )
+
+            aiRegisterNavGraph(
+                onBackClick = navigator::popBackStackIfNotHome,
+                onResultClick = { navigator.navigateSessionDetail(it.id) },
                 onShowErrorSnackBar = onShowErrorSnackBar
             )
         }

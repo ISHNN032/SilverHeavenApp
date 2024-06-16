@@ -46,19 +46,22 @@ import com.valentinilk.shimmer.shimmer
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-internal fun SponsorCard(uiState: SponsorsUiState) {
+internal fun SponsorCard(uiState: SponsorsUiState, onClick: () -> Unit) {
     when (uiState) {
         SponsorsUiState.Empty -> Unit
         SponsorsUiState.Loading -> SponsorCardSkeleton()
-        is SponsorsUiState.Sponsors -> SponsorCardContents(uiState = uiState)
+        is SponsorsUiState.Sponsors -> SponsorCardContents(uiState = uiState, onClick = onClick)
     }
 }
 
 @Composable
 private fun SponsorCardContents(
     uiState: SponsorsUiState.Sponsors,
+    onClick: () -> Unit
 ) {
-    KnightsCard {
+    KnightsCard (
+        onClick = onClick
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -80,8 +83,14 @@ private fun SponsorCardContents(
                     color = DuskGray,
                     modifier = Modifier.padding(top = 8.dp),
                 )
+                Image(
+                    painter = painterResource(R.drawable.img_ai_robot),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxWidth().padding(40.dp),
+                    contentDescription = "ai robot icon"
+                )
             }
-            SponsorGroup(uiState.groupedSponsorsByGrade)
+            //SponsorGroup(uiState.groupedSponsorsByGrade)
         }
     }
 }
@@ -259,8 +268,8 @@ private fun SponsorCardPreview(
     @PreviewParameter(SponsorsUiStatePreviewParameterProvider::class) sponsorsUiState: SponsorsUiState,
 ) {
     KnightsTheme {
-        SponsorCard(
-            uiState = sponsorsUiState,
-        )
+//        SponsorCard(
+//            uiState = sponsorsUiState,
+//        )
     }
 }

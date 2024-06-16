@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -164,12 +165,14 @@ class ChatGPTViewModel(private val chatGPTApi: ChatGPTApi) : ViewModel() {
         viewModelScope.launch {
             _generatedText.value = Resource.Loading()
             try {
+                Log.d("SpeechTest", "send: $prompt");
                 val messages = listOf(
                     ChatGPTApi.ChatGPTRequest.Message("user", prompt)
                 )
                 val request = ChatGPTApi.ChatGPTRequest(messages = messages)
                 val response = chatGPTApi.generateText(BuildConfig.GPT_API_KEY, request)
                 val generatedText = response.choices.firstOrNull()?.message?.content.orEmpty()
+                Log.d("SpeechTest", "response: $generatedText");
                 _generatedText.value = Resource.Success(generatedText)
             } catch (e: Exception) {
                 _generatedText.value = Resource.Error(e.message ?: "Unknown error")

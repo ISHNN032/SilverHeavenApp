@@ -57,6 +57,10 @@ internal class MainNavigator(
         navController.navigateSession()
     }
 
+    fun navigateAiRegister() {
+        navController.navigateAiRegister()
+    }
+
     fun navigateSessionDetail(sessionId: String) {
         navController.navigateSessionDetail(sessionId)
     }
