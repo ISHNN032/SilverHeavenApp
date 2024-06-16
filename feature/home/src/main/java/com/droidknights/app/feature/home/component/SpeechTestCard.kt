@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -79,32 +80,39 @@ fun SpeechTestCard(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        when (uiState) {
-            is SpeechTestUiState.Loading -> {
-                CircularProgressIndicator()
-            }
-            is SpeechTestUiState.Error -> {
-                Text("Error: ${(uiState as SpeechTestUiState.Error).errorMessage}")
-            }
-            is SpeechTestUiState.Success -> {
-                Text((uiState as SpeechTestUiState.Success).generatedText)
-            }
-            SpeechTestUiState.Idle -> {
-                Button(
-                    onClick = {
-                        requestSpeechRecognitionPermission(context, requestCodeSpeechRecognition)
-                        activityResultLauncher.launch(recognizerIntent)
-                    }
-                ) {
-                    Text("Start Speech Recognition")
+    when (uiState) {
+        is SpeechTestUiState.Loading -> {
+            CircularProgressIndicator()
+        }
+        is SpeechTestUiState.Error -> {
+            Text("Error: ${(uiState as SpeechTestUiState.Error).errorMessage}")
+        }
+        is SpeechTestUiState.Success -> {
+            Text((uiState as SpeechTestUiState.Success).generatedText)
+        }
+        is SpeechTestUiState.Idle -> {
+            Button(
+                onClick = {
+//                    requestSpeechRecognitionPermission(context, requestCodeSpeechRecognition)
+//                    val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+//                        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+//                        putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//                        putExtra(RecognizerIntent.EXTRA_SECURE, true)
+//                    }
+//                    activityResultLauncher.launch(recognizerIntent)
+                    val startString = "지금부터 나한테 이런 순서로 질문을 해줘 질문을 받으면 내 답변을 json 파일로 만들어줘\n" +
+                            "\n" +
+                            "1. 이름\n" +
+                            "2. 취미\n" +
+                            "3. 전공\n" +
+                            "4. 주소\n" +
+                            "5. 가입목적\n" +
+                            "대답은 하지 말고, 바로 질문부터 시작해줘"
+                    viewModel.speechText(startString)
+                    viewModel.generateText(startString)
                 }
+            ) {
+                Text("Start Speech Recognition")
             }
         }
     }
@@ -121,6 +129,8 @@ fun SpeechTestCard(
             is ChatGPTViewModel.Resource.Success -> {
                 // 생성된 텍스트 처리
                 onGeneratedTextReceived(resource.data)
+                requestSpeechRecognitionPermission(context, requestCodeSpeechRecognition)
+                activityResultLauncher.launch(recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, resource.data.replace("\n","")))
             }
             is ChatGPTViewModel.Resource.Error -> {
                 // 에러 상태 UI 표시
@@ -150,6 +160,8 @@ sealed class SpeechTestUiState {
 }
 
 class ChatGPTViewModel(private val chatGPTApi: ChatGPTApi) : ViewModel() {
+    val previousMessages = mutableListOf<ChatGPTApi.ChatGPTRequest.Message>()
+
     private val _speechText = MutableStateFlow("")
     private val _generatedText = MutableStateFlow<Resource<String>?>(null)
     val speechText: StateFlow<String?> = _speechText
@@ -166,12 +178,15 @@ class ChatGPTViewModel(private val chatGPTApi: ChatGPTApi) : ViewModel() {
             _generatedText.value = Resource.Loading()
             try {
                 Log.d("SpeechTest", "send: $prompt");
-                val messages = listOf(
-                    ChatGPTApi.ChatGPTRequest.Message("user", prompt)
-                )
-                val request = ChatGPTApi.ChatGPTRequest(messages = messages)
+                previousMessages.add(ChatGPTApi.ChatGPTRequest.Message("user", prompt))
+                val request = ChatGPTApi.ChatGPTRequest(messages = previousMessages)
                 val response = chatGPTApi.generateText(BuildConfig.GPT_API_KEY, request)
+
                 val generatedText = response.choices.firstOrNull()?.message?.content.orEmpty()
+                response.choices.first {
+                    previousMessages.add(it.message)
+                }
+
                 Log.d("SpeechTest", "response: $generatedText");
                 _generatedText.value = Resource.Success(generatedText)
             } catch (e: Exception) {

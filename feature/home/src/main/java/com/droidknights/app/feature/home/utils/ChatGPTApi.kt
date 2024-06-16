@@ -14,7 +14,7 @@ interface ChatGPTApi {
     ): ChatGPTResponse
 
     data class ChatGPTRequest(
-        @SerializedName("model") val model: String = "gpt-3.5-turbo",
+        @SerializedName("model") val model: String = "gpt-4o",
         @SerializedName("messages") val messages: List<Message>,
         @SerializedName("max_tokens") val maxTokens: Int = 2048,
         @SerializedName("temperature") val temperature: Double = 0.7,
