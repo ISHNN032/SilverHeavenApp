@@ -46,7 +46,7 @@ import com.valentinilk.shimmer.shimmer
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-internal fun SponsorCard(uiState: SponsorsUiState, onClick: () -> Unit) {
+fun SponsorCard(uiState: SponsorsUiState, onClick: () -> Unit) {
     when (uiState) {
         SponsorsUiState.Empty -> Unit
         SponsorsUiState.Loading -> SponsorCardSkeleton()

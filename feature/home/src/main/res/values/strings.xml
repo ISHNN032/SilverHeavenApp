@@ -4,6 +4,6 @@
     <string name="contributor_card_description">주변에 비슷한 관심사를 가진\n 모임을 소개합니다.</string>
     <string name="session_card_title">자리를 빛내주실 기업과\n채용 정보를 소개합니다</string>
     <string name="session_card_caption">추천 취업 &amp; 세션 목록</string>
-    <string name="sponsor_card_title">AI로 정보를 수정해보세요</string>
-    <string name="sponsor_card_description">AI와 간단한 대화를 통해,\n내 정보를 수정할 수 있습니다.</string>
+    <string name="sponsor_card_title">AI로 정보를 입력해보세요</string>
+    <string name="sponsor_card_description">AI와 간단한 대화를 통해,\n내 정보를 작성할 수 있습니다.</string>
 </resources>

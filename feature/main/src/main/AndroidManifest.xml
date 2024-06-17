@@ -15,6 +15,13 @@
         </activity>
 
         <activity
+            android:name=".AiRegisterActivity"
+            android:configChanges="uiMode"
+            android:exported="true"
+            android:theme="@style/Theme.DroidKnights.TransparentSystemBar">
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:configChanges="uiMode"
             android:exported="true"

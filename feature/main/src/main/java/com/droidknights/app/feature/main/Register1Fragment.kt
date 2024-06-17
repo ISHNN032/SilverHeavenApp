@@ -2,6 +2,7 @@ package com.droidknights.app.feature.main
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.droidknights.app.core.designsystem.theme.KnightsTheme
+import com.droidknights.app.feature.home.HomeViewModel
+import com.droidknights.app.feature.home.component.SponsorCard
 import java.util.Calendar
 
 class Register1Fragment : Fragment() {
@@ -43,7 +51,15 @@ class Register1Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.register_sub1, container, false)
 
-
+        val composeView = view.findViewById<ComposeView>(R.id.ai_register)
+        composeView.setContent {
+            KnightsTheme(darkTheme = false) {
+                val sponsorsUiState by hiltViewModel<HomeViewModel>().sponsorsUiState.collectAsStateWithLifecycle()
+                SponsorCard(uiState = sponsorsUiState, onClick = {
+                    startActivity(Intent(context, AiRegisterActivity::class.java))
+                })
+            }
+        }
 
         editTextName = view.findViewById(R.id.editTextName)
         editTextPhoneNumber = view.findViewById(R.id.editTextPhoneNumber)

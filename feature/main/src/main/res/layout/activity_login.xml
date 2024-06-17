@@ -20,15 +20,15 @@
             android:layout_height="wrap_content"
             android:text="우리들의 실버천국"
             android:textColor="@color/black"
-            android:textSize="40dp"
+            android:textSize="32dp"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="16dp"/>
 
         <ImageView
             android:id="@+id/imageViewSmile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_smile_face"
             android:contentDescription="Smile Image"
             android:layout_marginTop="10dp"
@@ -91,14 +91,5 @@
                 android:background="@drawable/rounded_button" />
 
         </LinearLayout>
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/ai_button"
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ai_join_image" />
-
 </LinearLayout>

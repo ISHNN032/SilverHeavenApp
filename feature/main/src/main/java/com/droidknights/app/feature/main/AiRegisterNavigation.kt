@@ -17,11 +17,7 @@ fun NavGraphBuilder.aiRegisterNavGraph(
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     composable<Route.AiRegister> {
-        AiRegisterScreen(
-            onBackClick = onBackClick,
-            onResultClick = onResultClick,
-            onShowErrorSnackBar = onShowErrorSnackBar
-        )
+        AiRegisterScreen()
     }
 
     composable<Route.SessionDetail> { navBackStackEntry ->

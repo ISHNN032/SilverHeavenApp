@@ -1,11 +1,15 @@
 package com.droidknights.app.feature.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.droidknights.app.core.data.repository.DefaultUserRepository
 import com.droidknights.app.core.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -17,9 +21,13 @@ class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentIntera
     @Inject
     lateinit var userRepository: DefaultUserRepository
     private val registrationData = RegistrationData()
+    var auth : FirebaseAuth? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        setTheme(androidx.appcompat.R.style.Theme_AppCompat_Light_NoActionBar)
         setContentView(R.layout.activity_register)
 
         if (savedInstanceState == null) {
@@ -77,27 +85,40 @@ class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentIntera
             Log.d("RegisterActivity", user.toString())
             userRepository.registerUser(user)
         }
-
-        showMyPage()
+        signinAndSignup(registrationData.email!!, registrationData.password!!)
     }
 
-    private fun showMyPage() {
-        val bundle = Bundle().apply {
-            putString("name", registrationData.name)
-            putString("phoneNumber", registrationData.phoneNumber)
-            putString("birthday", registrationData.birthday)
-            putString("location", registrationData.location)
-            putString("job", registrationData.job)
-            putString("hobby", registrationData.hobby)
-            putString("email", registrationData.email)
-            putString("password", registrationData.password)
-        }
+    fun signinAndSignup(email: String, password: String) {
+        auth?.createUserWithEmailAndPassword(email, password)
+            ?.addOnCompleteListener {
+                    task ->
+                if(task.isSuccessful) {
+                    //DataManager.setSample(Sample())
+                    moveMainPage(task.result.user)
+                }else if(task.exception?.message.isNullOrEmpty()) {
+                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+                }else {
+                    signinEmail(email, password)
+                }
+            }
+    }
 
-        val myPageFragment = MyPageFragment().apply {
-            arguments = bundle
-        }
+    fun signinEmail(email: String, password: String) {
+        auth?.createUserWithEmailAndPassword(email, password)
+            ?.addOnCompleteListener {
+                    task ->
+                if(task.isSuccessful) {
+                    moveMainPage(task.result.user)
+                }else if(task.exception?.message.isNullOrEmpty()) {
+                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+                }
+            }
+    }
 
-        loadFragment(myPageFragment)
+    fun moveMainPage(user: FirebaseUser?) {
+        if(user != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onEditProfile() {

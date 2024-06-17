@@ -1,5 +1,6 @@
 package com.droidknights.app.feature.main
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -59,18 +61,11 @@ data class SpeechData (
 
 @Composable
 internal fun AiRegisterScreen (
-    onBackClick: () -> Unit,
-    onResultClick: (Recruit) -> Unit,
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
     userViewModel: UserViewModel = hiltViewModel(),
 ) {
     val speechDataList = remember { mutableStateOf(mutableListOf<SpeechData>()) }
     var previousSpeechText by remember { mutableStateOf("") }
-
-    LaunchedEffect(Unit) {
-
-    }
-
+    val context = LocalContext.current as? Activity
     var speechText by remember { mutableStateOf("") }
     var generatedText by remember { mutableStateOf("") }
 
@@ -78,7 +73,9 @@ internal fun AiRegisterScreen (
         modifier = Modifier.fillMaxSize().padding(bottom = 32.dp)
     ) {
         TopBar(
-            onBackClick = onBackClick
+            onBackClick = {
+                context?.finish()
+            }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
