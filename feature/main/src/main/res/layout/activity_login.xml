@@ -6,92 +6,99 @@
     android:padding="16dp"
     android:background="@color/backgroundColor">
 
-<!--    &lt;!&ndash; 위쪽 섹션에 여유 공간을 채우기 위해 추가 &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:orientation="vertical"-->
-<!--        android:gravity="center">-->
-
-
-<!--    </LinearLayout>-->
-
-    <!-- 로그인 및 회원가입 섹션 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
         android:gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_background">
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp">
 
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="우리들의 실버천국"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
 
+        <ImageView
+            android:id="@+id/imageViewSmile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_smile_face"
+            android:contentDescription="Smile Image"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/email_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
+            android:hint="이메일"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="200dp"/>
-
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_edit_text"/>
 
         <EditText
             android:id="@+id/password_edittext"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="8dp"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_edit_text"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="10dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="로그인하기"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:background="@drawable/rounded_button"
-                android:layout_marginLeft="10dp"/>
+                android:background="@drawable/rounded_button" />
             <Button
                 android:id="@+id/join_button"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="회원 가입"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:background="@drawable/rounded_button"
-                android:layout_marginRight="10dp"/>
+                android:background="@drawable/rounded_button" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- AI 가입 섹션 -->
     <Button
         android:id="@+id/ai_button"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ai_join_image"
-        android:padding="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitCenter"/>
+        android:background="@drawable/ai_join_image" />
 
 </LinearLayout>
