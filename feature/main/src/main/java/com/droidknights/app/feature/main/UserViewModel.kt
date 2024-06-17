@@ -12,6 +12,10 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val userRepository: DefaultUserRepository
 ) : ViewModel() {
+    suspend fun getCurrentUser() : User {
+        return userRepository.getUser("1")
+    }
+
     fun registerUser(user: User) {
         viewModelScope.launch {
             userRepository.registerUser(user)

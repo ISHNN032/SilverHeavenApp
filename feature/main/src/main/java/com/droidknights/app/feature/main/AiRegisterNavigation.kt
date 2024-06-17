@@ -19,9 +19,4 @@ fun NavGraphBuilder.aiRegisterNavGraph(
     composable<Route.AiRegister> {
         AiRegisterScreen()
     }
-
-    composable<Route.SessionDetail> { navBackStackEntry ->
-        val sessionId = navBackStackEntry.toRoute<Route.SessionDetail>().sessionId
-
-    }
 }

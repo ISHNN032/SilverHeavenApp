@@ -14,6 +14,6 @@ fun NavGraphBuilder.myPageNavGraph(
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
     composable<MainTabRoute.MyPage> {
-
+        MyPageScreen()
     }
 }

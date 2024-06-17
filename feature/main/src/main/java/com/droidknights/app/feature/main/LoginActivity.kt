@@ -7,19 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.ComposeView
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.droidknights.app.core.designsystem.theme.KnightsTheme
-import com.droidknights.app.feature.home.HomeViewModel
-import com.droidknights.app.feature.home.component.SponsorCard
-import com.droidknights.app.feature.home.model.SponsorsUiState
 import com.google.firebase.auth.FirebaseUser
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

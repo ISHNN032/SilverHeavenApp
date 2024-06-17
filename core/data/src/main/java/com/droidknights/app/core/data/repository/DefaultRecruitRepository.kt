@@ -39,13 +39,13 @@ internal class DefaultRecruitRepository @Inject constructor(
         return bookmarkIds.filterNotNull()
     }
 
-    override suspend fun bookmarkRecruit(recruitId: String, bookmark: Boolean) {
+    override suspend fun bookmarkRecruit(sessionId: String, bookmark: Boolean) {
         val currentBookmarkedRecruitIds = bookmarkIds.first()
         sessionDataSource.updateBookmarkedSession(
             if (bookmark) {
-                currentBookmarkedRecruitIds + recruitId
+                currentBookmarkedRecruitIds + sessionId
             } else {
-                currentBookmarkedRecruitIds - recruitId
+                currentBookmarkedRecruitIds - sessionId
             }
         )
     }
