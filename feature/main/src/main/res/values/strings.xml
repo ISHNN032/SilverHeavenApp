@@ -69,6 +69,8 @@
     <string name="phone_number">전화번호</string>
     <string name="address">주소</string>
     <string name="hobby">취미</string>
+    <string name="birthday">생일</string>
+    <string name="id">아이디</string>
     <string name="major">전공</string>
     <string name="myEmail">이메일</string>
     <string name="myPass">비밀번호</string>

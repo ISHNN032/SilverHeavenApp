@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+//import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,6 +39,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidknights.app.core.model.User
 import com.droidknights.app.feature.home.HomeViewModel
 import com.droidknights.app.feature.home.component.SponsorCard
+
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+
 
 @Composable
 fun MyPageScreen(
@@ -68,19 +75,20 @@ fun MyPageScreen(
                 text = stringResource(id = R.string.my_page),
                 color = colorResource(id = R.color.black),
                 fontSize = 30.sp,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 60.dp, top = 16.dp)
+                    .padding(start = 50.dp, top = 40.dp)
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_smile_face),
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .width(80.dp)
-                    .height(80.dp)
-                    .padding(start = 15.dp)
+                    .width(70.dp)
+                    .height(70.dp)
                     .alpha(0.8f)
+                    .padding(end = 10.dp)
             )
         }
 
@@ -90,14 +98,18 @@ fun MyPageScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp),
+                .padding(top = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "생일",
+                text = stringResource(id = R.string.birthday),
                 color = colorResource(id = R.color.black),
                 fontSize = 18.sp,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp),  // 좌측 패딩 추가
+                textAlign = TextAlign.Start  // 왼쪽 정렬
+
             )
             Text(
                 text = stringResource(id = R.string.gender),
@@ -105,9 +117,12 @@ fun MyPageScreen(
                 fontSize = 18.sp,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 160.dp)
+                    .padding(start = 8.dp),  // 좌측 패딩 추가
+                textAlign = TextAlign.Start  // 왼쪽 정렬
             )
         }
+
+        BirthdayAndIdRow(birthday = user?.birthday, id = user?.id) // birthday와 id를 일렬로 배치
 
         UserInfoLabel(stringResource(id = R.string.phone_number))
         UserInfo(user?.phoneNumber)
@@ -150,16 +165,28 @@ fun UserInfoLabel(label: String) {
         color = colorResource(id = R.color.black),
         fontSize = 18.sp,
         modifier = Modifier
-            .padding(top = 30.dp)
+            .padding(top = 10.dp)
+            .fillMaxWidth()
+            .padding(top = 20.dp, start = 8.dp)
     )
 }
 
 @Composable
 fun UserInfo(info: String?) {
+    val shape = RoundedCornerShape(10.dp)
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(10.dp)
+            .clip(shape)
+            .background(color = colorResource(id = R.color.white))  // 배경 색 설정
+            .border(
+                width = 2.dp,
+                color = colorResource(id = R.color.backgroundColor),  // 테두리 색상 참조
+                shape = shape  // 둥근 모서리 모양 설정
+
+            )
     ) {
         if (info != null) {
             Text(
@@ -171,3 +198,47 @@ fun UserInfo(info: String?) {
         }
     }
 }
+
+@Composable
+fun BirthdayAndIdRow(birthday: String?, id: String?) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(modifier = Modifier.weight(1f)) {
+            UserInfoBox(value = birthday)
+        }
+        Box(modifier = Modifier.weight(1f)) {
+            UserInfoBox(value = id)
+        }
+    }
+}
+
+@Composable
+fun UserInfoBox(value: String?) {
+    val shape = RoundedCornerShape(16.dp)  // 둥근 모서리의 반경 설정
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()  // 부모의 전체 너비를 채움
+            .padding(8.dp)
+            .clip(shape)  // 모서리 둥글게 자르기
+            .background(color = colorResource(id = R.color.white))  // 배경 색 설정
+            .border(
+                width = 2.dp,
+                color = colorResource(id = R.color.backgroundColor),  // 테두리 색상 참조
+                shape = shape  // 둥근 모서리 모양 설정
+            )
+            .padding(8.dp)  // 내부 여백
+    ) {
+        Text(
+            text = value ?: "",
+            color = colorResource(id = R.color.black),
+            fontSize = 18.sp
+        )
+    }
+}
+
+
+
