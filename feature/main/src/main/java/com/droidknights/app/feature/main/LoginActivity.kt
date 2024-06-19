@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,31 +43,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun signinAndSignup() {
-        auth?.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
+
+        auth?.signInWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
             ?.addOnCompleteListener {
                 task ->
                 if(task.isSuccessful) {
-                    //DataManager.setSample(Sample())
+                    Toast.makeText(this,"로그인 완료", Toast.LENGTH_LONG).show()
                     moveMainPage(task.result.user)
                 }else if(task.exception?.message.isNullOrEmpty()) {
                     Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
-                }else {
-                    signinEmail()
                 }
             }
     }
 
-    fun signinEmail() {
-        auth?.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
-            ?.addOnCompleteListener {
-                    task ->
-                if(task.isSuccessful) {
-                    moveMainPage(task.result.user)
-                }else if(task.exception?.message.isNullOrEmpty()) {
-                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
-                }
-            }
-    }
+//
+//    fun signinEmail() {
+//        auth?.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
+//            ?.addOnCompleteListener {
+//                    task ->
+//                if(task.isSuccessful) {
+//                    moveMainPage(task.result.user)
+//                }else if(task.exception?.message.isNullOrEmpty()) {
+//                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//    }
 
     fun moveMainPage(user: FirebaseUser?) {
         if(user != null) {
