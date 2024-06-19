@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.androidx.ui.viewbinding)
     implementation(libs.androidx.fragment)
+    implementation(libs.gson)
     androidTestImplementation(projects.core.testing)
     debugImplementation(projects.core.uiTestHiltManifest)
 

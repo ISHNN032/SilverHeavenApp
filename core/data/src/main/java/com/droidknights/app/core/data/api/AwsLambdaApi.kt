@@ -2,6 +2,7 @@ package com.droidknights.app.core.data.api
 
 import com.droidknights.app.core.data.api.model.RecruitResponse
 import com.droidknights.app.core.data.api.model.UserResponse
+import com.droidknights.app.core.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

@@ -43,11 +43,6 @@ internal abstract class DataModule {
     ): SessionPreferencesDataSource
 
     @Binds
-    abstract fun bindUserRepository(
-        repository: DefaultUserRepository,
-    ): UserRepository
-
-    @Binds
     abstract fun bindUserLocalDataSource(
         dataSource: DefaultUserPreferencesDataSource,
     ): UserPreferencesDataSource

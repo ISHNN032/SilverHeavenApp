@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,16 +45,18 @@ fun SpeechTestCard(
     onSpeechTextReceived: @Composable (String) -> Unit,
     onGeneratedTextReceived: @Composable (String) -> Unit
 ) {
-    val startString = "지금부터 나한테 이런 순서로 질문을 해줘 답변을 다 받으면 내 답변을 토대로 json 파일을 만들어줘.\n" +
+    val startString = "지금부터 나한테 이런 순서로 질문을 해줘,\n" +
+            "다음 질문을 하기 전에, 답변에 대한 추가 질문을 해줘. 질문당 2회 까지.\n" +
+            "모든 질문에 대한 답변을 다 받으면 내 답변을 토대로 json 파일을 만들어줘.\n" +
             "\n" +
-            "1. 이름\n" +
-            "2. 취미\n" +
-            "3. 전공\n" +
-            "4. 사는 동네\n" +
-            "5. 몸 불편한 곳은 없는지\n"+
-            "6. 가입목적\n" +
-            "대답은 하지 말고, 바로 인사하고 질문부터 시작해줘. 질문은 어르신한테 하는 거니까 공손하게. 번호는 붙이지 말고," +
-            "직업이나 취미를 가지기 위해서 tag를 추천하려고 하는데, 그걸 String[]형태로 json에 추가해줘"
+            "name: 이름\n" +
+            "hobby: 취미\n" +
+            "job: 전공\n" +
+            "location: 사는 동네\n" +
+            "tags:[]에 {\"name\":} 으로 추가 몸 불편한 곳은 없는지\n"+
+            "tags:[]에 {\"name\":} 추가 가입목적\n" +
+            "대답은 하지 말고, 바로 인사하고 질문부터 시작해줘. 질문에 번호는 붙이지 말고.\n" +
+            "tags[]에 취미랑 전공에서 대답한 내용도 추가해줘"
 
     val chatGPTApi = Retrofit.Builder()
         .baseUrl("https://api.openai.com/")
@@ -113,9 +116,10 @@ fun SpeechTestCard(
 //                    activityResultLauncher.launch(recognizerIntent)
                     //viewModel.speechText(startString)
                     viewModel.generateText(startString)
-                }
+                },
+                Modifier.fillMaxWidth().padding(20.dp, 0.dp)
             ) {
-                Text("Start Speech Recognition")
+                Text("대화 시작하기")
             }
         }
     }

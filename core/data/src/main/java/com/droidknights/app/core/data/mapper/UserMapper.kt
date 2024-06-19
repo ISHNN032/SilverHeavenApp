@@ -1,5 +1,6 @@
 package com.droidknights.app.core.data.mapper
 
+import com.droidknights.app.core.data.api.model.TagResponse
 import com.droidknights.app.core.data.api.model.UserResponse
 import com.droidknights.app.core.model.Tag
 import com.droidknights.app.core.model.User
@@ -15,7 +16,7 @@ internal fun UserResponse.toData(): User =
         hobby = this.hobby,
         email = this.email,
         password = this.password,
-        tags = this.tags.map { Tag(it) },
+        tags = this.tags.map { Tag(it.name) },
     )
 
 internal fun User.toResponse(): UserResponse =
@@ -29,5 +30,5 @@ internal fun User.toResponse(): UserResponse =
         hobby = this.hobby,
         email = this.email,
         password = this.password,
-        tags = this.tags.map { it.name },
+        tags = this.tags.map { TagResponse(null, it.name) },
     )

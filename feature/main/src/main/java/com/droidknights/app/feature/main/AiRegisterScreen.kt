@@ -1,6 +1,7 @@
 package com.droidknights.app.feature.main
 
 import android.app.Activity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,6 +46,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.droidknights.app.core.designsystem.component.KnightsCard
+import com.droidknights.app.core.designsystem.theme.DuskGray
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.core.model.Category
 import com.droidknights.app.core.model.Recruit
@@ -93,7 +97,8 @@ internal fun AiRegisterScreen (
             onGeneratedTextReceived = { text ->
                 generatedText = text
                 if (text.contains("```json")) {
-                    userViewModel.updateUser(text)
+                    val dataString = text.substring(text.indexOf("```json") + 7, text.lastIndexOf("```"))
+                    userViewModel.updateUser(dataString)
                 }
             },
 
@@ -128,7 +133,7 @@ fun TopBar(
         }
 
         Text(
-            text = "AI 대화 연습",
+            text = "AI 정보 등록",
             modifier = Modifier.align(Alignment.CenterVertically)
         )
 
@@ -156,46 +161,38 @@ fun SpeechDataList(
 @Composable
 fun QuestionAnswerBox(
     question: String,
-    answer: String,
-    modifier: Modifier = Modifier
+    answer: String
 ) {
-    Column {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = Color(0xFF8BC34A),
-                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-                )
-                .padding(16.dp)
+    KnightsCard (
+        modifier = Modifier.padding(0.dp, 16.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = question,
-                style = TextStyle(
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = question,
+                    style = KnightsTheme.typography.headlineSmallBL,
                     fontSize = 18.sp
                 )
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = Color(0xFFDCEDC8),
-                    shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
-                )
-                .padding(16.dp)
-        ) {
-            Text(
-                text = answer,
-                style = TextStyle(
-                    color = Color.White,
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = answer,
+                    style = KnightsTheme.typography.titleLargeM,
                     fontSize = 16.sp
                 )
-            )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 

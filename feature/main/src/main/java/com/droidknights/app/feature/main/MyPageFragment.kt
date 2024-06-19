@@ -8,12 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.droidknights.app.core.data.repository.DefaultUserRepository
-import com.droidknights.app.core.model.User
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MyPageFragment : Fragment() {
     private lateinit var textViewName: TextView

@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.droidknights.app.core.data.repository.DefaultUserRepository
+import com.droidknights.app.core.domain.usecase.RegisterUserUseCase
 import com.droidknights.app.core.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -18,10 +18,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentInteractionListener, Register2Fragment.OnFragmentInteractionListener, Register3Fragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener {
-    @Inject
-    lateinit var userRepository: DefaultUserRepository
     private val registrationData = RegistrationData()
     var auth : FirebaseAuth? = null;
+
+    @Inject
+    lateinit var registerUserUseCase: RegisterUserUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +67,7 @@ class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentIntera
         registrationData.hobby = hobby
 
         val user = User(
-            id = "0",
+            id = "1",
             name = registrationData.name!!,
             phoneNumber = registrationData.phoneNumber!!,
             birthday = registrationData.birthday!!,
@@ -83,7 +84,7 @@ class RegisterActivity : AppCompatActivity(), Register1Fragment.OnFragmentIntera
         // 모든 데이터를 모아서 처리하거나 저장하는 로직 추가
         GlobalScope.launch {
             Log.d("RegisterActivity", user.toString())
-            userRepository.registerUser(user)
+            registerUserUseCase(user)
         }
         signinAndSignup(registrationData.email!!, registrationData.password!!)
     }

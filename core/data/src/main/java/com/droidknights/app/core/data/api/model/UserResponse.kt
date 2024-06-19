@@ -14,5 +14,5 @@ data class UserResponse(
     @SerialName("hobby") val hobby: String,
     @SerialName("email") val email: String,
     @SerialName("password")val password: String,
-    @SerialName("tags") val tags: List<String>
+    @SerialName("tags") val tags: List<TagResponse>
 )

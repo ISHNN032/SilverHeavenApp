@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
-class DefaultUserRepository @Inject constructor(
+internal class DefaultUserRepository @Inject constructor(
     private val awsLambdaApi: AwsLambdaApi,
     private val userDataSource: UserPreferencesDataSource
 ) : UserRepository {
@@ -24,23 +24,21 @@ class DefaultUserRepository @Inject constructor(
     }
 
     override suspend fun getUser(userId: String): User {
-        val cachedUser = cachedUsers.find { it.id == userId }
-        if (cachedUser != null) {
-            return cachedUser
-        }
+//        val cachedUser = cachedUsers.find { it.id == userId }
+//        if (cachedUser != null) {
+//            return cachedUser
+//        }
 
         return getUsers().find { it.id == userId }
             ?: error("User not found with id: $userId")
     }
 
     override suspend fun registerUser(user: User): User {
-        val userResponse = user.toResponse();
-        return awsLambdaApi.createUser(userResponse).toData()
+        return awsLambdaApi.createUser(user.toResponse()).toData()
     }
 
     override suspend fun updateUser(user: User): User {
-        val userResponse = user.toResponse();
-        return awsLambdaApi.updateUser(userResponse).toData()
+        return awsLambdaApi.updateUser(user.toResponse()).toData()
     }
 
     override fun getTags(): Flow<Set<String>> {
