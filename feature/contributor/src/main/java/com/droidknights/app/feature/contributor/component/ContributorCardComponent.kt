@@ -11,18 +11,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.droidknights.app.core.designsystem.component.KnightsCard
 import com.droidknights.app.core.designsystem.component.NetworkImage
 import com.droidknights.app.core.designsystem.component.TextChip
 import com.droidknights.app.core.designsystem.res.rememberPainterResource
 import com.droidknights.app.core.designsystem.theme.KnightsTheme
 import com.droidknights.app.feature.contributor.R
+import com.droidknights.app.feature.contributor.StringViewModel
 import com.droidknights.app.feature.contributor.model.ContributorsUiState
 import com.valentinilk.shimmer.shimmer
 
@@ -31,6 +35,7 @@ internal fun ContributorCard(
     contributor: ContributorsUiState.Contributors.Item.User,
     modifier: Modifier = Modifier,
     showPlaceholder: Boolean,
+    viewModel: StringViewModel = hiltViewModel()
 ) {
     val uriHandler = LocalUriHandler.current
     val shimmerModifier = if (showPlaceholder) {
@@ -70,7 +75,7 @@ internal fun ContributorCard(
                     modifier = shimmerModifier
                 )
                 Text(
-                    text = contributor.name,
+                    text = viewModel.getRandomString(),
                     style = KnightsTheme.typography.headlineSmallBL,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier
