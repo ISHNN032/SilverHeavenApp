@@ -107,14 +107,6 @@ fun SpeechTestCard(
         is SpeechTestUiState.Idle -> {
             Button(
                 onClick = {
-//                    requestSpeechRecognitionPermission(context, requestCodeSpeechRecognition)
-//                    val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-//                        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-//                        putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-//                        putExtra(RecognizerIntent.EXTRA_SECURE, true)
-//                    }
-//                    activityResultLauncher.launch(recognizerIntent)
-                    //viewModel.speechText(startString)
                     viewModel.generateText(startString)
                 },
                 Modifier.fillMaxWidth().padding(20.dp, 0.dp)

@@ -1,11 +1,11 @@
 package com.droidknights.app.core.data.datastore.fake
 
-import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
+import com.droidknights.app.core.datastore.datasource.RecruitPreferencesDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 
-class FakeSessionPreferencesDataSource : SessionPreferencesDataSource {
+class FakeRecruitPreferencesDataSource : RecruitPreferencesDataSource {
 
     private val _bookmarkedSession = MutableStateFlow(emptySet<String>())
 

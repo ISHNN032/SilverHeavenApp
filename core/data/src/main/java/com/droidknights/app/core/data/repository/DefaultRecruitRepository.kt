@@ -3,7 +3,7 @@ package com.droidknights.app.core.data.repository
 import com.droidknights.app.core.data.api.AwsLambdaApi
 import com.droidknights.app.core.data.mapper.toData
 import com.droidknights.app.core.data.repository.api.RecruitRepository
-import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
+import com.droidknights.app.core.datastore.datasource.RecruitPreferencesDataSource
 import com.droidknights.app.core.model.Recruit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 internal class DefaultRecruitRepository @Inject constructor(
     private val awsLambdaApi: AwsLambdaApi,
-    private val sessionDataSource: SessionPreferencesDataSource
+    private val sessionDataSource: RecruitPreferencesDataSource
 ) : RecruitRepository {
 
     private var cachedRecruits: List<Recruit> = emptyList()

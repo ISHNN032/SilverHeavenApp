@@ -8,9 +8,9 @@ import javax.inject.Inject
 import javax.inject.Named
 import kotlinx.coroutines.flow.map
 
-class DefaultSessionPreferencesDataSource @Inject constructor(
+class DefaultRecruitPreferencesDataSource @Inject constructor(
     @Named("session") private val dataStore: DataStore<Preferences>,
-) : SessionPreferencesDataSource {
+) : RecruitPreferencesDataSource {
     object PreferencesKey {
         val BOOKMARKED_SESSION = stringSetPreferencesKey("BOOKMARKED_SESSION")
     }

@@ -15,9 +15,9 @@ import com.droidknights.app.core.data.repository.api.RecruitRepository
 import com.droidknights.app.core.data.repository.api.SettingsRepository
 import com.droidknights.app.core.data.repository.api.SponsorRepository
 import com.droidknights.app.core.data.repository.api.UserRepository
-import com.droidknights.app.core.datastore.datasource.DefaultSessionPreferencesDataSource
+import com.droidknights.app.core.datastore.datasource.DefaultRecruitPreferencesDataSource
 import com.droidknights.app.core.datastore.datasource.DefaultUserPreferencesDataSource
-import com.droidknights.app.core.datastore.datasource.SessionPreferencesDataSource
+import com.droidknights.app.core.datastore.datasource.RecruitPreferencesDataSource
 import com.droidknights.app.core.datastore.datasource.UserPreferencesDataSource
 import dagger.Binds
 import dagger.Module
@@ -38,9 +38,9 @@ internal abstract class DataModule {
     ): SettingsRepository
 
     @Binds
-    abstract fun bindSessionLocalDataSource(
-        dataSource: DefaultSessionPreferencesDataSource,
-    ): SessionPreferencesDataSource
+    abstract fun bindRecruitLocalDataSource(
+        dataSource: DefaultRecruitPreferencesDataSource,
+    ): RecruitPreferencesDataSource
 
     @Binds
     abstract fun bindUserLocalDataSource(
@@ -50,7 +50,6 @@ internal abstract class DataModule {
     @InstallIn(SingletonComponent::class)
     @Module
     internal object FakeModule {
-
         @Provides
         @Singleton
         fun provideSponsorRepository(
@@ -60,9 +59,9 @@ internal abstract class DataModule {
 
         @Provides
         @Singleton
-        fun provideSessionRepository(
+        fun provideRecruitRepository(
             awsLambdaApi: AwsLambdaApi,
-            sessionDataSource: SessionPreferencesDataSource,
+            sessionDataSource: RecruitPreferencesDataSource,
         ): RecruitRepository =
             DefaultRecruitRepository(awsLambdaApi, sessionDataSource)
 
